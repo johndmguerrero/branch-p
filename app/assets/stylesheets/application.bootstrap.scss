@@ -1,5 +1,6 @@
 $enable-important-utilities: false;
 
-@import 'bootstrap/scss/bootstrap';
+@import "@webpixels/css";
+// @import 'bootstrap/scss/bootstrap';
 @import 'bootstrap-icons/font/bootstrap-icons';
 @import 'main.scss';
