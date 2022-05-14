@@ -10,10 +10,15 @@
 #  updated_at :datetime         not null
 #
 class Branch < ApplicationRecord
+  has_many :users
   enum status: [:open, :close], _default: "close"
 
   def open!
     p "nice"
     super 
+  end
+
+  def initials
+    name[0,1]
   end
 end
