@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+
+branch = Branch.new( name: 'Mister Donuts', address: 'Bacoor, Cavite')
+owner = branch.users.create( email: 'owner@gmail.com', password: 'Testing123', password_confirmation: 'Testing123')
+owner.owner!
+
+
+

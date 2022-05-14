@@ -23,6 +23,12 @@ module BranchPos
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 7.0
 
+    # load observers
+
+    Dir.chdir("#{Rails.root}/app/observers") do
+      config.active_record.observers = Dir["*_observer.rb"].collect {|ob_name| ob_name.split(".").first}
+    end
+
     # Configuration for the application, engines, and railties goes here.
     #
     # These settings can be overridden in specific environments using the files

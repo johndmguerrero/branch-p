@@ -11,6 +11,11 @@
   </head>
 
   <body>
-    <%= yield %>
+    <% if user_signed_in? %>
+      <%= render partial: '/layouts/shared/navbar' %>
+      <%= yield %>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>
