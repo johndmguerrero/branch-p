@@ -11,8 +11,9 @@ Rails.application.routes.draw do
     end
   end
 
-  resource :dashboard
-  resource :point_of_sales
+  resources :dashboard
+  resources :point_of_sales
+  resources :products
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
