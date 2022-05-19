@@ -29,7 +29,7 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
-  default_scope { includes(:branch) }
+  default_scope { includes(:branch, :orders) }
 
   enum role: [ :staff, :admin, :owner], _default: 'staff'
   # Include default devise modules. Others available are:
@@ -38,6 +38,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :branch
+  
+  has_many :orders
 
   def avatar_name
     email.chars.first
