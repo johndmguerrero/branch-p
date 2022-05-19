@@ -8,3 +8,4 @@ import "jquery-validation"
 
 window.$ = jquery
 window.jQuery = jquery
+window.bootstrap = bootstrap

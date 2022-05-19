@@ -1,6 +1,8 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
+
+
   maskInput(field){
     var number_field = document.getElementById(field)
     var im = new Inputmask({
@@ -59,6 +61,10 @@ export default class extends Controller {
     if(product_form.valid()){
       product_form.trigger('submit')
     }
+  }
+
+  initialize(){
+    // this.toastBehavior()
   }
 
 }

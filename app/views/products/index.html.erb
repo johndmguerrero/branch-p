@@ -1,4 +1,4 @@
-<header class="pt-5 bg-surface-secondary">
+<header class="pt-5">
   <div class="container-xl">
     <div>
       <div class="row align-items-center">
@@ -28,10 +28,19 @@
         <!-- Nav -->
       <ul class="nav nav-tabs overflow-x mt-2">
         <li class="nav-item">
-          <a href="#" class="nav-link font-regular active">All Products</a>
+          <%= link_to products_path, class: "nav-link font-regular #{active_page(products_path)}" do %>
+            All Products
+          <% end %>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link font-regular">Archived</a>
+          <%= link_to products_path(type: 'archived'), class: "nav-link font-regular #{active_page(products_path(type: 'archived'))}" do %>
+            Archived
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to products_path(type: 'deleted'), class: "nav-link font-regular #{active_page(products_path(type: 'deleted'))}" do %>
+            Deleted
+          <% end if current_user.owner? %>
         </li>
       </ul>
     </div>
@@ -41,14 +50,6 @@
 <main class="py-10 bg-surface-secondary">
   <!-- Container -->
   <div class="container-xl">
-    <% if flash.present? %>
-    <div class="alert alert-primary" role="alert">
-      <strong>Holy guacamole!</strong> <%= flash[:notice] %>
-    </div>
-    <div class="alert alert-primary" role="alert">
-      <strong>Holy guacamole!</strong> <%= flash[:alert] %>
-    </div>
-    <% end %>
     <div class="bg-card rounded shadow-sm">
       <div class="py-5">
         <%= product_index_view %>

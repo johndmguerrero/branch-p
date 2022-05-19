@@ -10,12 +10,13 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
 
-  <body>
+  <body data-controller="toast">
     <% if user_signed_in? %>
       <%= render partial: '/layouts/shared/navbar' %>
       <%= yield %>
     <% else %>
       <%= yield %>
     <% end %>
+    <%= toastr_flash %>
   </body>
 </html>
