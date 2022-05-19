@@ -3,3 +3,28 @@
 body{
   font-family: 'Poppins', sans-serif;
 }
+
+/* width */
+::-webkit-scrollbar {
+  width: 5px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(134, 134, 134); 
+}
+
+.dropdown-menu{
+  z-index: 1001;
+}
+
+.product-image-preview{
+  &:hover{
+    .frame-file-upload{
+      opacity: 1;
+    }
+  }
+  .frame-file-upload{
+    cursor: pointer;
+  }
+}

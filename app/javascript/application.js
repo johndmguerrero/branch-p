@@ -2,3 +2,10 @@
 import "@hotwired/turbo-rails"
 import "./controllers"
 import * as bootstrap from "bootstrap"
+import inputmask from "inputmask"
+import jquery from "jquery"
+import "jquery-validation"
+
+window.$ = jquery
+window.jQuery = jquery
+window.bootstrap = bootstrap

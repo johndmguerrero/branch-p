@@ -6,8 +6,8 @@
     </button>
 
     <a class="navbar-brand" href="#">
-      <div class="avatar avatar-sm bg-primary rounded-circle text-white">
-        <%= current_user.branch.initials.upcase %>
+      <div class="avatar avatar-sm bg-primary text-white">
+        <%= current_branch.initials.upcase %>
       </div>
     </a>
 
@@ -39,20 +39,25 @@
           <span>Support</span>
         </a>
         <div class="dropdown-divider"></div>
-        <a href="#!" class="dropdown-item">
+        <%= button_to destroy_user_session_path, method: 'delete', class: "dropdown-item" do %>
           <i class="ni ni-user-run"></i>
           <span>Logout</span>
-        </a>
+        <% end %>
       </div>
     </div>
       <!-- Collapse -->
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <!-- Nav -->
       <div class="navbar-nav">
-          <a class="nav-item nav-link " href="#" aria-current="page">Point of Sales</a>
-          <a class="nav-item nav-link" href="#">Orders</a>
-          <a class="nav-item nav-link" href="#">Inventory</a>
-          <a class="nav-item nav-link" href="#">Settings</a>
+        <%= link_to point_of_sales_path, class:'nav-item nav-link' do %>
+          Point of Sales
+        <% end %>
+        <a class="nav-item nav-link" href="#">Orders</a>
+        <%= link_to products_path, class: 'nav-item nav-link' do %>
+          Products
+        <% end %>
+        <a class="nav-item nav-link" href="#">Inventory</a>
+        <a class="nav-item nav-link" href="#">Settings</a>
       </div>
       <!-- Right navigation -->
       <div class="navbar-nav align-items-lg-center d-none d-lg-flex ms-lg-auto">

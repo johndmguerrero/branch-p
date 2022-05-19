@@ -11,6 +11,8 @@
 #
 class Branch < ApplicationRecord
   has_many :users
+  has_many :products
+  
   enum status: [:open, :close], _default: "close"
 
   def open!

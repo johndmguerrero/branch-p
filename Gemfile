@@ -53,6 +53,8 @@ gem 'faker'
 gem "hashid-rails", "~> 1.0"
 gem 'devise'
 gem 'rails-observers'
+gem 'money-rails', '~>1.12'
+gem 'will_paginate', '~> 3.3.0'
 
 
 # Use Sass to process CSS
