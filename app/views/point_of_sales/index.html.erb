@@ -1,4 +1,4 @@
-<main class="bg-dark">
+<header class="bg-dark">
   <div class="container-md">
     <div class="row">
       <div class="col-lg-12">
@@ -47,9 +47,9 @@
         <!-- Account navigation -->
         <div class="d-flex position-relative transform translate-y-1/2">
           <!-- Button Icon Text -->
-          <a href="#" class="btn btn-icon btn-sm btn-neutral border-0 shadow-3 shadow-md">
+          <a data-bs-toggle="offcanvas" href="#cart-offcanvas" class="btn btn-icon btn-sm btn-neutral border-0 shadow-3 shadow-md">
             <i class="bi bi-bag m-0 me-md-2"></i>
-            <span class="">Checkout</span>
+            <span class="">View Cart</span>
           </a>
           <div class="btn-group ms-auto" role="group" aria-label="Basic example">
             <%# <a href="#" class="btn btn-icon btn-sm btn-neutral shadow-3 shadow-md border-0 d-none">
@@ -65,4 +65,13 @@
       </div>
     </div>
   </div>
+</header>
+
+<main class="container">
+  <div class="row">
+    
+  </div>
 </main>
+
+
+<%= render partial: 'point_of_sales/partials/cart_offcanvas' %>
