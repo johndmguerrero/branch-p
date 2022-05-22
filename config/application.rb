@@ -25,6 +25,8 @@ module BranchPos
 
     # load observers
 
+    config.active_storage.variant_processor = :mini_magick
+
     Dir.chdir("#{Rails.root}/app/observers") do
       config.active_record.observers = Dir["*_observer.rb"].collect {|ob_name| ob_name.split(".").first}
     end

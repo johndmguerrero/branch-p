@@ -1,77 +1,66 @@
-<header class="bg-dark">
-  <div class="container-md">
-    <div class="row">
-      <div class="col-lg-12">
-        <!-- Salute + Small stats -->
-        <div class="row align-items-center mb-4">
-          <div class="col-md-5 mb-4 mb-md-0">
-            <h1 class="mb-1 text-white">Order, # <%= @order.order_number %></h1>
-            <span class="text-white text-opacity-80">Start adding to Cart</span>
+<div id="point-of-sales-frame" data-controller="point-of-sales">
+  <header class="bg-dark">
+    <div class="container-md">
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- Salute + Small stats -->
+          <div class="row align-items-center mb-4">
+            <div class="col-md-5 mb-4 mb-md-0">
+              <h1 class="mb-1 text-white">Order, # <%= @order.order_number %></h1>
+              <span class="text-white text-opacity-80">Start adding to Cart</span>
+            </div>
+            <div class="col-auto flex-fill">
+              <%= turbo_frame_tag "header-order-info" do %>
+                <%= render partial: 'point_of_sales/partials/header_order_info', locals: { order: @order } %>
+              <% end %>
+            </div>
           </div>
-          <div class="col-auto flex-fill">
-            <ul class="list-inline d-flex justify-content-md-end mb-0">
-              <li class="list-inline-item">
-                <div class="bg-shade-dark px-4 py-2 rounded">
-                  <span class="badge text-white ps-0">
-                    <i class="bi bi-collection me-2 d-none"></i>Items
-                  </span>
-                  <span class="d-sm-block mt-1 h5 text-white font-bold">
-                    20
-                    <small class="bi bi-arrow-up text-success me-n1"></small>
-                  </span>
-                </div>
-              </li>
-              <li class="list-inline-item">
-                <div class="bg-shade-dark px-4 py-2 rounded">
-                  <span class="badge text-white ps-0">
-                    <i class="bi bi-bag-fill me-2 d-none"></i>Subtotal
-                  </span>
-                  <span class="d-sm-block mt-1 h5 text-white font-bold">
-                    <span class="me-1">&#8369;</span><%= @order.subtotal %>
-                  </span>
-                </div>
-              </li>
-              <li class="list-inline-item">
-                <div class="bg-shade-dark px-4 py-2 rounded">
-                  <span class="badge text-white ps-0">
-                    <i class="bi bi-percent me-2 d-none"></i>Discount
-                  </span>
-                  <span class="d-sm-block mt-1 h5 text-success font-bold">
-                    -3.24%
-                  </span>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <!-- Account navigation -->
-        <div class="d-flex position-relative transform translate-y-1/2">
-          <!-- Button Icon Text -->
-          <a data-bs-toggle="offcanvas" href="#cart-offcanvas" class="btn btn-icon btn-sm btn-neutral border-0 shadow-3 shadow-md">
-            <i class="bi bi-bag m-0 me-md-2"></i>
-            <span class="">View Cart</span>
-          </a>
-          <div class="btn-group ms-auto" role="group" aria-label="Basic example">
-            <%# <a href="#" class="btn btn-icon btn-sm btn-neutral shadow-3 shadow-md border-0 d-none">
-              <i class="bi bi-gear m-0 me-md-2"></i>
-              <span class="d-none d-sm-inline-block">Settings</span>
-            </a> %>
-            <a href="#" class="btn btn-icon btn-sm btn-neutral shadow-3 shadow-md border-0">
-              <i class="bi bi-percent m-0 me-md-2"></i>
-              <span class="">Apply Discount</span>
+          <!-- Account navigation -->
+          <div class="d-flex position-relative transform translate-y-1/2">
+            <!-- Button Icon Text -->
+            <a data-bs-toggle="offcanvas" href="#cart-offcanvas" class="btn btn-icon btn-sm btn-neutral border-0 shadow-3 shadow-md">
+              <i class="bi bi-bag m-0 me-md-2"></i>
+              <span class="">View Cart</span>
             </a>
+            <div class="btn-group ms-auto" role="group" aria-label="Basic example">
+              <%# <a href="#" class="btn btn-icon btn-sm btn-neutral shadow-3 shadow-md border-0 d-none">
+                <i class="bi bi-gear m-0 me-md-2"></i>
+                <span class="d-none d-sm-inline-block">Settings</span>
+              </a> %>
+              <a href="#" class="btn btn-icon btn-sm btn-neutral shadow-3 shadow-md border-0">
+                <i class="bi bi-percent m-0 me-md-2"></i>
+                <span class="">Apply Discount</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</header>
+  </header>
 
-<main class="container">
-  <div class="row">
-    
+  <div class="bg-surface-secondary">
+    <main class="container py-10">
+      <div class="row">
+        <%= product_index_collection %>
+      </div>
+    </main>
   </div>
-</main>
+</div>
 
 
 <%= render partial: 'point_of_sales/partials/cart_offcanvas' %>
+
+<div class="offcanvas w-50% offcanvas-bottom rounded-2 h-4/6" tabindex="-1" id="offcanvasBottom" aria-labelledby="offcanvasBottomLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Offcanvas bottom</h5>
+    <button type="button" class="btn-close text-reset text-xs" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body small">
+    ...
+  </div>
+  <div class="modal-footer bg-surface-secondary">
+    <button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="offcanvas">Close</button>
+    <%# link_to checkout_path %>
+    <button type="button" class="btn btn-sm btn-success">Complete Order</button>
+  </div>
+</div>

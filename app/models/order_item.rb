@@ -3,7 +3,7 @@
 # Table name: order_items
 #
 #  id                :bigint           not null, primary key
-#  quantity          :integer
+#  quantity          :integer          default(0)
 #  status            :integer
 #  subtotal_cents    :integer          default(0), not null
 #  subtotal_currency :string           default("PHP"), not null
@@ -25,8 +25,12 @@
 #  fk_rails_...  (product_id => products.id)
 #
 class OrderItem < ApplicationRecord
+  default_scope { includes(:product).order('id desc') }
+
+  include OrderItemConcern
+
   enum status: [:pending, :void, :complete], _default: "pending"
 
   belongs_to :order
-  belongs_to :product
+  belongs_to :product, with_deleted: true
 end

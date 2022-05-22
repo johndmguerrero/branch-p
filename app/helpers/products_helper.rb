@@ -1,5 +1,9 @@
 module ProductsHelper
 
+  def product_index_peso
+    "<span>&#8369;</span>".html_safe
+  end
+
   def product_index_view
     if @products.present?
       # @products = @products.try(&:with_deleted) if current_user.owner?

@@ -1,9 +1,8 @@
 class OrderObserver < ActiveRecord::Observer
 
-  # def after_initialize(order)
-  #   order_number = generate_number(order)
-  #   order.order_number = order_number
-  # end
+  def after_initialize(order) 
+    order.recalculate
+  end
 
   def before_create(order)
     order_number = generate_number(order)
