@@ -1,9 +1,10 @@
 <%# turbo_frame_tag "cart-offcanvas-body" do %>
-  <label class="form-label">Uploads</label>
   <div class="list-group list-group-flush">
-    <% order.order_items.each do |item| %>
-      <%= turbo_frame_tag dom_id(item), class: 'list-group-item d-flex align-items-center' do %>
-        <%= render partial: 'point_of_sales/partials/cart_offcanvas_item', locals: { item: item } %>
+    <% if order.order_items.present? %>
+      <% order.order_items.each do |item| %>
+        <%= turbo_frame_tag dom_id(item), class: 'list-group-item d-flex align-items-center' do %>
+          <%= render partial: 'point_of_sales/partials/cart_offcanvas_item', locals: { item: item } %>
+        <% end %>
       <% end %>
     <% end %>
     <%# <div class="list-group-item d-flex align-items-center d-none">
@@ -30,4 +31,5 @@
         </div>
     </div> %>
   </div>
+  <%= placeholder_content(order.order_items, 'Cart')%>
 <%# end %>

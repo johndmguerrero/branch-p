@@ -14,6 +14,7 @@
     <!-- Subtitle -->
     <span class="d-block text-xs text-muted"><%= item.quantity %> <%= "piece".pluralize(item.quantity) %></span>
   </div>
+  <% if !item.order.paid? %>
   <div class="ms-auto">
     <div class="dropdown">
       <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" id="dropdownMore1" aria-haspopup="true" aria-expanded="false">
@@ -28,9 +29,9 @@
   </div>
   <div class="ms-4 text-end">
     <button type="button" class="btn-close text-xs" 
-            data-controller="point-of-sales" 
             data-action="click->point-of-sales#removeItem" 
             data-point-of-sales-item-id-param=<%= item.id%>
             data-point-of-sales-order-id-param=<%= @order.id %>
             ></button>
   </div>
+  <% end %>

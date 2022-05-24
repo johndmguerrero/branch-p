@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_21_181403) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_24_153558) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,6 +89,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_21_181403) do
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "payments", force: :cascade do |t|
+    t.bigint "order_id"
+    t.integer "amount_paid_cents", default: 0, null: false
+    t.string "amount_paid_currency", default: "PHP", null: false
+    t.integer "change_cents", default: 0, null: false
+    t.string "change_currency", default: "PHP", null: false
+    t.integer "status"
+    t.string "transaction_id"
+    t.datetime "paid_at"
+    t.string "payment_method"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "remarks"
+    t.index ["order_id"], name: "index_payments_on_order_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -136,4 +152,5 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_21_181403) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
+  add_foreign_key "payments", "orders"
 end

@@ -82,7 +82,7 @@ module ProductsHelper
   end
 
   def product_edit_image_display
-    if @product.image.present?
+    if @product&.image&.present?
       "<div data-product-target='productCard' class='bg-cover rounded-1 shadow' style='height: 250px; background-image: url(#{url_for(@product.image)}); background-position: center center;'></div>".html_safe
     else
       "<div data-product-target='productCard' class='bg-cover rounded-1 shadow' style='height: 250px; background-image: url(https://images.unsplash.com/photo-1602161571105-1655a1c114a6?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1280&q=80); background-position: center center;'></div>".html_safe

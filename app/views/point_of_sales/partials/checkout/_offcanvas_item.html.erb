@@ -1,0 +1,20 @@
+
+  <div class="flex-fill">
+      <!-- Title -->
+    <span class="d-block h6 text-sm font-bold mb-1"><%= item.product.name&.capitalize %></span>
+    <!-- Subtitle -->
+  </div>
+  <div class="ms-auto">
+    <span class="d-block text-xs "><%= item.quantity %> <i class="bi bi-x-lg"></i></span>
+
+    <div class="dropdown d-none">
+      <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" id="dropdownMore1" aria-haspopup="true" aria-expanded="false">
+        <i class="bi bi-three-dots-vertical"></i>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        <a href="#!" class="dropdown-item">
+          Apply Discount
+        </a>
+      </div>
+    </div>
+  </div>

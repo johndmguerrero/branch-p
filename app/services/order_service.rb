@@ -43,6 +43,16 @@ class OrderService
     item
   end
 
+  def confirm_payment
+    payment = order.payment
+    payment = order.create_payment if payment.nil?
+
+    payment.amount_paid = params[:received]
+    payment.remarks = params[:remarks]
+    payment.change_cents = payment.amount_paid_cents - order.total_cents
+    payment.confirm!
+  end
+
   def processed?
     processed == true
   end

@@ -14,4 +14,14 @@ module ApplicationHelper
     current_page?(link_path, check_parameters: true) ? 'active' : ''
   end
 
+  def placeholder_content(object, empty_text)
+    if !object.present?
+      "<div class='border border-4 border-dashed rounded d-flex flex-column justify-content-center align-items-center mx-4' style='min-height: 100%'>
+        <div class='h4 font-semibold text-muted opacity-8'>
+          Empty #{empty_text}
+        </div>
+      </div>".html_safe
+    end
+  end
+
 end

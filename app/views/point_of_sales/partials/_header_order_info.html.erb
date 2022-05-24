@@ -17,17 +17,17 @@
         <i class="bi bi-bag-fill me-2 d-none"></i>Subtotal
       </span>
       <span class="d-sm-block mt-1 h5 text-white font-bold">
-        <span class="me-1">&#8369;</span><span><%= @order.subtotal %></span>
+        <span class="me-1">&#8369;</span><span><%= order.subtotal %></span>
       </span>
     </div>
   </li>
   <li class="list-inline-item">
     <div class="bg-shade-dark px-4 py-2 rounded">
       <span class="badge text-white ps-0">
-        <i class="bi bi-percent me-2 d-none"></i>Discount
+        <i class="bi bi-percent me-2 d-none"></i>Status
       </span>
-      <span class="d-sm-block mt-1 h5 text-success font-bold">
-        <%= @order.order_discount %>
+      <span class="d-sm-block mt-1 h5 font-bold text-sm text-white">
+        <%= order_status_header_info(order)%>
       </span>
     </div>
   </li>

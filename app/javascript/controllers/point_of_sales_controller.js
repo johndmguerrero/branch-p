@@ -1,10 +1,37 @@
 import { Controller } from "@hotwired/stimulus"
 import { Turbo } from "@hotwired/turbo-rails";
+import inputmask from "inputmask";
 
 // Connects to data-controller="point-of-sales"
 export default class extends Controller {
-  connect() {
+  static targets = ["confirmFormTag", "amountToPay", "received"]
 
+  initialize(){
+    this.maskInput(this.amountToPayTarget)
+    this.maskInput(this.receivedTarget)
+  }
+
+  connect() {
+    var offcanvasElementList = [].slice.call(document.querySelectorAll('.offcanvas'))
+    var offcanvasList = offcanvasElementList.map(function (offcanvasEl) {
+      return new bootstrap.Offcanvas(offcanvasEl)
+    })
+
+    this.bindConfirmFromValidation(this.confirmFormTagTarget)
+
+    $.validator.addMethod("EmptyNumber", function(value, element, arg){
+      var total = document.getElementById('amount-to-pay').value
+      var recv = document.getElementById('received').value
+      var unmaskedValue = parseFloat(recv.replace(/\,/g,''), 10)
+      var total_value = parseFloat(total.replace(/\,/g,''), 10)
+      console.log(unmaskedValue)
+      console.log(total_value )
+      var result = false
+      if(unmaskedValue >= total_value){
+        result = true
+      }
+      return result != false
+    }, "Please input Greater Amount");
   }
 
   addCart({params: { id, orderId}}) {
@@ -48,5 +75,65 @@ export default class extends Controller {
   getMetaValue(name) {
     const element = document.head.querySelector(`meta[name="${name}"]`)
     return element.getAttribute("content")
+  }
+
+  // functions
+
+  maskInput(field){
+    var im = new Inputmask({
+          prefix: "",
+          groupSeparator: ".",
+          alias: "numeric",
+          placeholder: "0",
+          autoGroup: true,
+          digits: 2,
+          digitsOptional: false,
+          clearMaskOnLostFocus: false,
+          allowMinus: false,
+          min: 0,
+          removeMaskOnSubmit: true,
+          onBeforeMask: function (value, opts) {
+            return value;
+          },
+      });
+    im.mask(field);
+  }
+
+  unmaskedValue(field){
+    
+  }
+
+  bindConfirmFromValidation(form){
+    $(form).validate({
+      errorClass: 'is-invalid',
+      ignore: 'ignore',
+  
+      onkeyup: function name(element) {
+        $(element).valid();
+      },
+  
+      rules: {
+        "received":{
+          required: true,
+          EmptyNumber: true
+        },
+      },
+      errorElement: "span",
+      errorPlacement(label, element) {
+        label.addClass('invalid-feedback')
+        return label.insertAfter($(element).closest('.form-control'))
+      },
+    });
+  }
+
+
+  amountToPayTargetConnected(){
+    this.maskInput(this.amountToPayTarget)
+  }
+  receivedTargetConnected(){
+    this.maskInput(this.receivedTarget)
+  }
+  confirmFormTagTargetConnected(){
+    this.bindConfirmFromValidation(this.confirmFormTagTarget)
   }
 }

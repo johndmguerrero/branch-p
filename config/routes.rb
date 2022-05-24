@@ -16,6 +16,8 @@ Rails.application.routes.draw do
     member do
       post :add_to_cart
       post :remove_item
+      post :draft
+      post :confirm_and_complete_order
     end
   end
   resources :products do
@@ -25,6 +27,7 @@ Rails.application.routes.draw do
       post :recover
     end
   end
+  resources :receipts
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

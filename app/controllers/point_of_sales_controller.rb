@@ -1,6 +1,6 @@
 class PointOfSalesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_order, only: [:add_to_cart, :remove_item]
+  before_action :set_order, only: [:add_to_cart, :remove_item, :draft]
   before_action :set_product, only: [:add_to_cart]
   before_action :set_order_item, only: [:remove_item]
 
@@ -9,15 +9,23 @@ class PointOfSalesController < ApplicationController
     @product = Product.order('products.category_id asc').group_by(&:category)
   end
 
+  def draft
+    @order_to_draft = Order.includes(:order_items).find_by id: params[:id]
+    @order_to_draft.draft!
+
+    redirect_to point_of_sales_path, flash: { notice: "Order #{@order_to_draft.order_number} set to draft" }
+  end
+
   def add_to_cart
     @item = OrderService.new(order: @order, product: @product, quantity: 1)
-    @item.add_to_cart
+    @item.add_to_cart if !@order.paid?
 
     respond_to do |format|
       format.turbo_stream do 
         render turbo_stream: [
           turbo_stream.update('cart-offcanvas-body', partial: 'point_of_sales/partials/cart_offcanvas_body', locals: { order: @order }),
-          turbo_stream.update('header-order-info', partial: 'point_of_sales/partials/header_order_info', locals: { order: @order })
+          turbo_stream.update('header-order-info', partial: 'point_of_sales/partials/header_order_info', locals: { order: @order }),
+          turbo_stream.update('checkout_form', partial: 'point_of_sales/partials/checkout/offcanvas_body', locals: { order: @order })
         ]
       end 
       format.json { render json: @item.response }
@@ -26,15 +34,33 @@ class PointOfSalesController < ApplicationController
 
   def remove_item
     item = OrderService.new(order: @order, order_item: @item)
-    item.remove_item
+    item.remove_item if !@order.paid?
 
     respond_to do |format|
       format.turbo_stream do
          render turbo_stream: [
            turbo_stream.update('header-order-info', partial: 'point_of_sales/partials/header_order_info', locals: { order: @order }),
+           turbo_stream.update('checkout_form', partial: 'point_of_sales/partials/checkout/offcanvas_body', locals: { order: @order }),
            turbo_stream.remove(item.order_item)
          ]
       end if item.processed?
+    end
+  end
+
+  def confirm_and_complete_order
+    @order = Order.includes(:order_items, :payment).find_by id: params[:id]
+    @payment = OrderService.new(order: @order, params: params)
+    @payment.confirm_payment
+    @order.reload
+    # @order.payment.confirm!
+
+    respond_to do |format|
+      format.turbo_stream do 
+        render turbo_stream: [
+          turbo_stream.update('checkout_form', partial: 'point_of_sales/partials/checkout/offcanvas_body', locals: { order: @order }),
+          turbo_stream.update('cart-offcanvas-body', partial: 'point_of_sales/partials/cart_offcanvas_body', locals: { order: @order })
+        ]
+      end 
     end
   end
 

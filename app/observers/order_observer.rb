@@ -9,6 +9,10 @@ class OrderObserver < ActiveRecord::Observer
     order.order_number = order_number
   end
 
+  def after_create(order)
+    order.create_payment
+  end
+
   private
 
   def generate_number(order)

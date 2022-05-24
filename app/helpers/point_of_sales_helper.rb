@@ -15,4 +15,12 @@ module PointOfSalesHelper
   def order_total_cart_item(order)
     order.order_total_quantity
   end
+
+  def order_status_header_info(order)
+    if order.paid?
+      order.payment.status.capitalize
+    else
+      order.status.capitalize
+    end
+  end
 end

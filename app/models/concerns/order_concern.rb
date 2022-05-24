@@ -14,8 +14,12 @@ module OrderConcern
 
     def recalculate
       self.subtotal_cents = order_items.map(&:recalculate).sum
-      self.total_cents = subtotal_cents unless true # add discount condition here
+      self.total_cents = subtotal_cents if true # add discount condition here
       save!
+    end
+
+    def paid?
+      payment.confirm?
     end
   end
 end
