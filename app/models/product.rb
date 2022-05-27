@@ -24,7 +24,7 @@
 #  index_products_on_deleted_at   (deleted_at)
 #
 class Product < ApplicationRecord
-  # default_scope { includes(:category) }
+  default_scope { includes(:category) }
   include ProductConcern
   acts_as_paranoid
 

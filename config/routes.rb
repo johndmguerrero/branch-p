@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       post :remove_item
       post :draft
       post :confirm_and_complete_order
+      post :complete
     end
   end
   resources :products do

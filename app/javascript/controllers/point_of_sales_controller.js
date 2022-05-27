@@ -24,8 +24,6 @@ export default class extends Controller {
       var recv = document.getElementById('received').value
       var unmaskedValue = parseFloat(recv.replace(/\,/g,''), 10)
       var total_value = parseFloat(total.replace(/\,/g,''), 10)
-      console.log(unmaskedValue)
-      console.log(total_value )
       var result = false
       if(unmaskedValue >= total_value){
         result = true
@@ -70,6 +68,14 @@ export default class extends Controller {
       .then((response) => {
       Turbo.renderStreamMessage(response)
     }).catch(e => console.log(e))
+  }
+
+  formValidate(event){
+    var checkout_form = $(this.confirmFormTagTarget)
+    
+    if(!checkout_form.valid()){
+      return false
+    }
   }
 
   getMetaValue(name) {

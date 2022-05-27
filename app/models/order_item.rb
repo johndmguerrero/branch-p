@@ -33,4 +33,10 @@ class OrderItem < ApplicationRecord
 
   belongs_to :order
   belongs_to :product, with_deleted: true
+
+  def complete_transaction
+    return true if complete?
+    product.update(quantity: product.quantity - quantity)
+    complete!
+  end
 end

@@ -21,5 +21,9 @@ module OrderConcern
     def paid?
       payment.confirm?
     end
+
+    def empty_cart?
+      order_total_quantity <= 0
+    end
   end
 end

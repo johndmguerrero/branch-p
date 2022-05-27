@@ -23,7 +23,7 @@
 class Order < ApplicationRecord
   include OrderConcern
 
-  enum status: [:pending, :draft, :void, :complete], _default: 'pending'
+  enum status: [:pending, :draft, :void, :processing, :complete], _default: 'pending'
 
   belongs_to :user
   belongs_to :branch, optional: true
@@ -31,4 +31,8 @@ class Order < ApplicationRecord
   has_one :payment
   has_many :order_items, dependent: :destroy
 
+  def complete!
+    order_items.map(&:complete_transaction)
+    super
+  end
 end

@@ -6,7 +6,7 @@ class PointOfSalesController < ApplicationController
 
   def index
     @order = current_order
-    @product = Product.order('products.category_id asc').group_by(&:category)
+    @product = Product.order('products.category_id asc, name asc').group_by(&:category)
   end
 
   def draft
@@ -50,7 +50,7 @@ class PointOfSalesController < ApplicationController
   def confirm_and_complete_order
     @order = Order.includes(:order_items, :payment).find_by id: params[:id]
     @payment = OrderService.new(order: @order, params: params)
-    @payment.confirm_payment
+    @payment.confirm_payment if @order.pending? && !@order.paid?
     @order.reload
     # @order.payment.confirm!
 
@@ -62,6 +62,13 @@ class PointOfSalesController < ApplicationController
         ]
       end 
     end
+  end
+
+  def complete
+    @order = Order.find_by id: params[:id]
+    @order.complete!
+    # @new_order = current_order
+    redirect_to point_of_sales_path, flash: { notice: "Order ##{@order.order_number} completed!" }
   end
 
   private
