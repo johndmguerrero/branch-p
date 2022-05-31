@@ -11,6 +11,7 @@
 #
 module Categories
   class Product < Category
+    default_scope { where(type: 'Categories::Product') }
 
     has_many :products, class_name: 'Product'
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_19_140454) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_29_170336) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,65 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_140454) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.string "message"
+    t.bigint "user_id"
+    t.string "notable_type"
+    t.bigint "notable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notable_type", "notable_id"], name: "index_notes_on_notable"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.integer "status"
+    t.integer "quantity", default: 0
+    t.integer "subtotal_cents", default: 0, null: false
+    t.string "subtotal_currency", default: "PHP", null: false
+    t.integer "total_cents", default: 0, null: false
+    t.string "total_currency", default: "PHP", null: false
+    t.bigint "order_id"
+    t.bigint "product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["product_id"], name: "index_order_items_on_product_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.integer "status"
+    t.string "order_number"
+    t.integer "total_cents", default: 0, null: false
+    t.string "total_currency", default: "PHP", null: false
+    t.integer "subtotal_cents", default: 0, null: false
+    t.string "subtotal_currency", default: "PHP", null: false
+    t.datetime "completed_at"
+    t.bigint "branch_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "remarks"
+    t.index ["branch_id"], name: "index_orders_on_branch_id"
+    t.index ["user_id"], name: "index_orders_on_user_id"
+  end
+
+  create_table "payments", force: :cascade do |t|
+    t.bigint "order_id"
+    t.integer "amount_paid_cents", default: 0, null: false
+    t.string "amount_paid_currency", default: "PHP", null: false
+    t.integer "change_cents", default: 0, null: false
+    t.string "change_currency", default: "PHP", null: false
+    t.integer "status"
+    t.string "transaction_id"
+    t.datetime "paid_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "remarks"
+    t.integer "payment_method"
+    t.index ["order_id"], name: "index_payments_on_order_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -103,4 +162,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_19_140454) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "notes", "users"
+  add_foreign_key "order_items", "orders"
+  add_foreign_key "order_items", "products"
+  add_foreign_key "payments", "orders"
 end

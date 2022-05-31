@@ -38,6 +38,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :branch
+  
+  has_many :orders
 
   def avatar_name
     email.chars.first

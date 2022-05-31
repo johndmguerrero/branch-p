@@ -52,7 +52,9 @@
         <%= link_to point_of_sales_path, class:'nav-item nav-link' do %>
           Point of Sales
         <% end %>
-        <a class="nav-item nav-link" href="#">Orders</a>
+        <%= link_to orders_path, class: 'nav-item nav-link' do %>
+          Orders
+        <% end %>
         <%= link_to products_path, class: 'nav-item nav-link' do %>
           Products
         <% end %>

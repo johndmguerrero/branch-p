@@ -1,0 +1,27 @@
+
+<div class="modal fade" id="draft-modal" tabindex="-1" aria-labelledby="modal_example" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-4">
+      <div class="modal-body">
+        <div class="text-center py-5 px-5">
+          <!-- Icon -->
+          <div class="icon icon-shape rounded-circle bg-soft-warning text-warning text-lg">
+            <i class="bi bi-exclamation-triangle-fill"></i>
+          </div>
+          <!-- Title -->
+          <h3 class="mt-7 mb-4">Draft Order?</h3>
+          <!-- Text -->
+          <p class="text-sm text-muted">
+            if you set the order to draft, you can continue the order by going to <span class="font-bold">Orders</span> page, then set the order to <span class="font-bold">Pending</span>
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="modal">Cancel</button>
+        <%= button_to draft_point_of_sale_path(id: @order.id), class: 'btn btn-sm btn-warning', form_class: 'd-inline-block', method: :post, remote: false do %>
+          <span class="d-sm-inline-block">Draft Order</span>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

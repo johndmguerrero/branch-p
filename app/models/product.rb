@@ -37,4 +37,8 @@ class Product < ApplicationRecord
 
   scope :deleted, -> { self.only_deleted }
   scope :archived, -> { where(status: [:archived]) }
+
+  def thumbnail_image
+    image.variant(resize: '256x256!')
+  end
 end

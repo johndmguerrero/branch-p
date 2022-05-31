@@ -28,3 +28,16 @@ body{
     cursor: pointer;
   }
 }
+
+.product-card{
+  border: 2px solid transparent;
+  cursor: pointer;
+
+  &:hover{
+    border-color: $primary;
+  }
+}
+
+.checkout-change-input{
+  background-color: transparent !important;
+}

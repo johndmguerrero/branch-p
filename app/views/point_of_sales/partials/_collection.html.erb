@@ -1,0 +1,33 @@
+<% @product.each do |category, products| %>
+  <div class="col-md-12">
+    <h5 class="mb-5"><%= category.name %></h5>
+    <div class="row mb-5">
+      <% products.each do |product| %>
+      <div class="col-12 col-md-4 col-lg-3">
+        <div class="product-card card shadow mb-5"
+            data-action="click->point-of-sales#addCart" 
+            data-point-of-sales-id-param="<%= product.id %>"
+            data-point-of-sales-order-id-param="<%= @current_order.id %>"
+          >
+          <div class="card-body">
+            <div class="d-flex">
+              <div>
+                <div class="avatar avatar-lg bg-surface-secondary rounded-2 text-white">
+                  <%= product_thumbnail(product) %>
+                </div>
+              </div>
+              <div class="ps-4">
+                <span class="d-block text-sm font-bold mb-1"><%= product.name&.capitalize %></span>
+                <div class="d-flex text-muted align-items-center mb-0">
+                  <%= product_index_peso %> <%= product.price %>
+                  <span class="text-xs text-success ms-2 d-none">(+12%)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+<% end %>

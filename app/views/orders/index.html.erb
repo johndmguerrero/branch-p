@@ -1,0 +1,56 @@
+<header class="pt-5">
+  <div class="container-xl">
+    <div>
+      <div class="row align-items-center">
+        <div class="col-md-6 col-12 mb-3 mb-md-0">
+            <!-- Title -->
+          <h1 class="h2 mb-0 ls-tight">Orders</h1>
+        </div>
+        <!-- Actions -->
+        <div class="col-md-4 col-12 text-md-end ms-auto">
+          <div class="mx-n1 d-none">
+            <form class="form-inline ms-auto me-4 d-flex">
+              <div class="input-group input-group-inline shadow-none">
+                <span class="input-group-text px-4 shadow-none">
+                  <i class="bi bi-search"></i>
+                </span>
+                <input type="email" class="form-control " placeholder="Search Order" aria-label="Search" aria-describedby="">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+        <!-- Nav -->
+      <ul class="nav nav-tabs overflow-x mt-2">
+        <li class="nav-item">
+          <%= link_to orders_path, class: "nav-link font-regular #{active_page(orders_path)}" do %>
+            All Orders
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to orders_path(type: 'draft'), class: "nav-link font-regular #{active_page(orders_path(type: 'draft'))}" do %>
+            Draft
+          <% end %>
+        </li>
+        <li class="nav-item">
+          <%= link_to orders_path(type: 'void'), class: "nav-link font-regular #{active_page(orders_path(type: 'void'))}" do %>
+            Voided
+          <% end %>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+<main class="py-10 bg-surface-secondary">
+  <!-- Container -->
+  <div class="container-xl">
+    <div class="bg-card rounded shadow-sm">
+      <div class="py-5">
+        <%= orders_index_view %>
+      </div>
+      <div class="card-footer">
+        <%= will_paginate @orders, page_links: false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+      </div>
+    </div>
+  </div>
+</main>

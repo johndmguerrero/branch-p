@@ -1,0 +1,42 @@
+<% if order.payment.pending? %>
+<div class="card shadow p-5">
+  <%= form_with url: confirm_and_complete_order_point_of_sale_path(id: order.id), method: :post, local: false, data: { "point-of-sales-target": "confirmFormTag" } do |t| %>
+    <div class="row g-5">
+      <div class="col-md-12">
+        <div class="">
+          <label class="form-label" for="company">Amount to pay</label>
+          <div class="input-group input-group-inline shadow-none border-none">
+            <span class="input-group-text shadow-none border-none" id="">
+                &#8369;
+            </span>
+            <input data-point-of-sales-target="amountToPay" type="text" class="form-control checkout-change-input border-none shadow-none" id="amount-to-pay" readonly="readonly" placeholder="&#8369; 10.00" value="<%= order.total %>">
+          </div>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="">
+          <%= t.label :received, 'Amount Received' %>
+          <%= t.text_field :received, class: 'form-control', data: { "point-of-sales-target" => "received" } %>
+        </div>
+      </div>
+      <div class="col-md-12">
+        <div class="">
+          <%= t.label :remarks, 'Remarks', class: 'form-label' %>
+          <%= t.text_area :remarks, class: 'form-control', placeholder: 'Remarks of the order', rows: 3 %>
+        </div>
+      </div>
+    </div>
+    <div class="mt-6">
+      <%= t.button type: 'submit', class: 'btn btn-primary w-full shadow', data: { disabled_with: '  <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+    Loading...'.html_safe, action: 'point-of-sales#formValidate' } do %>
+        Confirm Order
+      <% end if !order.empty_cart? %>
+      <div class="d-flex align-items-center justify-content-center text-center mt-5 mb-2 text-muted text-sm d-none">
+        <i class="bi bi-lock me-2"></i>
+        We don't store any of your data.
+        </span>
+      </div>
+    </div>
+  <% end %>
+</div>
+<% end %>

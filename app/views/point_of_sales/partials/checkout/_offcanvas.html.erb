@@ -1,0 +1,16 @@
+<div class="offcanvas w-50% offcanvas-bottom rounded-2 h-full" tabindex="-1" id="checkout-form-offcanvas" aria-labelledby="offcanvasBottomLabel">
+  <div class="offcanvas-header py-3 shadow-1">
+    <h5 class="offcanvas-title" id="offcanvasBottomLabel">Checkout form</h5>
+    <button type="button" class="btn-close text-reset text-xs" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body small bg-surface-secondary px-0 pb-0 p-md-6 pb-md-6">
+    <%= turbo_frame_tag "checkout_form" do %>
+      <%= render partial: 'point_of_sales/partials/checkout/offcanvas_body', locals: { order: @order } %>
+    <% end %>
+  </div>
+  <div class="modal-footer bg-surface-secondary d-none">
+    <button type="button" class="btn btn-sm btn-neutral shadow" data-bs-dismiss="offcanvas">Close</button>
+    <%# link_to checkout_path %>
+    <button type="button" class="btn btn-sm btn-success shadow">Complete Order</button>
+  </div>
+</div>

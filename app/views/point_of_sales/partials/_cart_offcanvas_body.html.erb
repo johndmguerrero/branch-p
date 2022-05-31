@@ -1,0 +1,35 @@
+<%# turbo_frame_tag "cart-offcanvas-body" do %>
+  <div class="list-group list-group-flush">
+    <% if order.order_items.present? %>
+      <% order.order_items.each do |item| %>
+        <%= turbo_frame_tag dom_id(item), class: 'list-group-item d-flex align-items-center' do %>
+          <%= render partial: 'point_of_sales/partials/cart_offcanvas_item', locals: { item: item } %>
+        <% end %>
+      <% end %>
+    <% end %>
+    <%# <div class="list-group-item d-flex align-items-center d-none">
+        <div class="me-4">
+          <div class="position-relative">
+            <img src="https://images.unsplash.com/photo-1599639932525-213272ff954b?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyMHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=400&h=320&q=60" class="w-16 rounded" />
+          </div>
+        </div>
+        <div class="flex-fill pe-7">
+          <div class="d-flex mb-2">
+            <div class="">
+              <span class="d-block h6 text-sm font-semibold mb-1">product-img-3.png</span>
+            </div>
+            <div class="ms-auto">
+              <span class="d-block text-sm font-semibold mb-1">40%</span>
+            </div>
+          </div>
+          <div class="progress" style="height: 5px;">
+            <div class="progress-bar bg-warning" role="progressbar" style="width: 40%" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+          </div>
+        </div>
+        <div class="ms-auto">
+          <button type="button" class="btn-close text-xs" aria-label="Close"></button>
+        </div>
+    </div> %>
+  </div>
+  <%= placeholder_content(order.order_items, 'Cart')%>
+<%# end %>

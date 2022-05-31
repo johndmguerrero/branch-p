@@ -1,0 +1,59 @@
+<div class="table-responsive" style="min-height: 400px;">
+  <table class="table table-hover table-nowrap">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Order Number</th>
+        <th scope="col">Status</th>
+        <th scope="col">Payment Method</th>
+        <th scope="col">Invoice</th>
+        <th scope="col">Created at</th> 
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <tr>
+          <td>
+            <%= link_to edit_order_path(id: order.id), class: 'text-dark' do %>
+              <span class="font-bold">
+                <%= "##{order.order_number}" %>
+              </span>
+            <% end %>
+            <span class="text-sm d-block">by <%= order.user.email %></span>
+          </td>
+          <td>
+            <%= order_index_status(order.status) %>
+            <%# <span >ABC 00021</span> %>
+          </td>
+          <td>
+            <%= "#{order_index_status(order.payment.status)} - <span class='font-bold'>#{humanized_money_with_symbol( order.total )}</span>".html_safe %>
+            <span class="d-block text-muted py-2">
+              <span class="font-bold">#</span>
+            <%= order.payment.transaction_id %></span>
+          </td>
+          <td>
+            <%= order_index_receipt(order) %>
+          </td>
+          <td>
+            <%= order.created_at.strftime("%a, %b %d %Y") %>
+          </td>
+          <td>
+            <%=  %>
+          </td>
+          <td class="text-end">
+            <div class="dropdown">
+              <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <a href="" class="dropdown-item">
+                  View
+                </a>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

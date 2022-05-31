@@ -8,8 +8,15 @@
 
 
 branch = Branch.new( name: 'Mister Donuts', address: 'Bacoor, Cavite')
+branch.save
 owner = branch.users.create( email: 'owner@gmail.com', password: 'Testing123', password_confirmation: 'Testing123')
 owner.owner!
+
+systad = branch.users.create( email: 'System@gmail.com', password: 'Testing123', password_confirmation: 'Testing123')
+
+
+uncategorized_pro = Categories::Product.create(name: 'Uncategorized', description: '')
+uncategorized_itm = Categories::Item.create(name: 'Uncategorized', description: '')
 
 
 

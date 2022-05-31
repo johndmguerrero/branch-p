@@ -1,70 +1,52 @@
-<main class="bg-dark">
-  <div class="container-md">
-    <div class="row">
-      <div class="col-lg-12">
-        <!-- Salute + Small stats -->
-        <div class="row align-items-center mb-4">
-          <div class="col-md-5 mb-4 mb-md-0">
-            <h1 class="mb-1 text-white">Order, <%= current_user.user_name %></h1>
-            <span class="text-white text-opacity-80">Start building something great</span>
+<%= render partial: 'point_of_sales/partials/cart_modal_draft' %>
+<div id="point-of-sales-frame" data-controller="point-of-sales">
+  <header class="bg-dark">
+    <div class="container-md pt-5">
+      <div class="row">
+        <div class="col-lg-12">
+          <!-- Salute + Small stats -->
+          <div class="row align-items-center mb-4">
+            <div class="col-md-5 mb-4 mb-md-0">
+              <h1 class="mb-1 text-white">Order, # <%= @order.order_number %></h1>
+              <span class="text-white text-opacity-80">Start adding to Cart</span>
+            </div>
+            <div class="col-auto flex-fill">
+              <%= turbo_frame_tag "header-order-info" do %>
+                <%= render partial: 'point_of_sales/partials/header_order_info', locals: { order: @order } %>
+              <% end %>
+            </div>
           </div>
-          <div class="col-auto flex-fill d-none">
-            <ul class="list-inline d-flex justify-content-md-end mb-0">
-              <li class="list-inline-item">
-                <div class="bg-shade-primary px-4 py-2 rounded">
-                  <span class="badge badge-dot text-white">
-                    <i class="bg-success"></i>Sales
-                  </span>
-                  <span class="d-sm-block mt-1 h5 text-white font-bold">
-                    20.5%
-                    <small class="bi bi-arrow-up text-success me-n1"></small>
-                  </span>
-                </div>
-              </li>
-              <li class="list-inline-item">
-                <div class="bg-shade-primary px-4 py-2 rounded">
-                  <span class="badge badge-dot text-white">
-                    <i class="bg-warning"></i>Tasks
-                  </span>
-                  <span class="d-sm-block mt-1 h5 text-white font-bold">
-                    5.7%
-                    <small class="bi bi-arrow-up text-warning me-n1"></small>
-                  </span>
-                </div>
-              </li>
-              <li class="list-inline-item">
-                <div class="bg-shade-primary px-4 py-2 rounded">
-                  <span class="badge badge-dot text-white">
-                    <i class="bg-danger"></i>Sales
-                  </span>
-                  <span class="d-sm-block mt-1 h5 text-white font-bold">
-                    -3.24%
-                    <small class="bi bi-arrow-down text-danger me-n1"></small>
-                  </span>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-        <!-- Account navigation -->
-        <div class="d-flex position-relative transform translate-y-1/2">
-          <!-- Button Icon Text -->
-          <a href="#" class="btn btn-icon btn-sm btn-neutral border-0 shadow">
-            <i class="bi bi-people"></i>
-            <span class="d-none d-sm-inline-block">Profile</span>
-          </a>
-          <div class="btn-group ms-auto" role="group" aria-label="Basic example">
-            <a href="#" class="btn btn-icon btn-sm btn-neutral shadow border-0">
-              <i class="bi bi-gear me-2"></i>
-              <span class="d-none d-sm-inline-block">Settings</span>
-            </a>
-            <a href="#" class="btn btn-icon btn-sm btn-neutral shadow border-0">
-              <i class="bi bi-bar-chart me-2"></i>
-              <span class="d-none d-sm-inline-block">Analitycs</span>
-            </a>
+          <!-- Account navigation -->
+          <div class="d-flex position-relative transform translate-y-1/2">
+            <!-- Button Icon Text -->
+            <div class="btn-group mx-auto" role="group" aria-label="Basic example">
+              <a data-bs-toggle="offcanvas" href="#cart-offcanvas" class="btn btn-icon btn-sm btn-neutral border-0 shadow-3 shadow-md">
+                <i class="bi bi-bag m-0 me-md-2"></i>
+                <span class="">View Cart</span>
+              </a>
+              <a data-bs-toggle="modal" data-bs-target="#draft-modal" class="btn btn-icon btn-sm btn-neutral shadow-3 shadow-md border-0">
+                <i class="bi bi-gear m-0 me-md-2"></i>
+                <span class="d-sm-inline-block">Draft Order</span>
+              </a>
+              <a href="#" class="btn btn-icon btn-sm btn-neutral shadow-3 shadow-md border-0">
+                <i class="bi bi-percent m-0 me-md-2"></i>
+                <span class="">Apply Discount</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>
     </div>
+  </header>
+
+  <div class="bg-surface-secondary">
+    <main class="container py-10">
+      <div class="row">
+        <%= product_index_collection %>
+      </div>
+    </main>
   </div>
-</main>
+  <%= render partial: 'point_of_sales/partials/cart_offcanvas' %>
+  <%= render partial: 'point_of_sales/partials/checkout/offcanvas' %>
+</div>
+

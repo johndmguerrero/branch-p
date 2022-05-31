@@ -1,0 +1,16 @@
+<div class="offcanvas offcanvas-end w-full w-sm-3/4 w-lg-1/3" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="cart-offcanvas" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="Label">Cart</h5>
+    <button type="button" class="btn-close text-reset text-xs" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body pt-0">
+    <%= turbo_frame_tag "cart-offcanvas-body", loading: "lazy" do %>
+      <%= render partial: 'point_of_sales/partials/cart_offcanvas_body', locals: { order: @order } %>
+    <% end %>
+  </div>
+  <div class="modal-footer bg-surface-secondary">
+    <button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="offcanvas">Close</button>
+    <%# link_to checkout_path %>
+    <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="offcanvas" data-bs-target="#checkout-form-offcanvas">Checkout</button>
+  </div>
+</div>
