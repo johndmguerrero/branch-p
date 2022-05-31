@@ -8,7 +8,7 @@
 #  change_cents         :integer          default(0), not null
 #  change_currency      :string           default("PHP"), not null
 #  paid_at              :datetime
-#  payment_method       :string
+#  payment_method       :integer
 #  remarks              :string
 #  status               :integer
 #  created_at           :datetime         not null
@@ -27,12 +27,12 @@
 class Payment < ApplicationRecord
   include PaymentConcern
 
-  enum status: [ :pending, :confirm, :complete], _default: 'pending'
+  enum status: [ :pending, :paid], _default: 'pending'
   enum payment_method: [ :cash, :card], _default: 'cash'
 
   belongs_to :order
 
-  def complete!
+  def paid!
     self.paid_at = Time.now
     super
   end

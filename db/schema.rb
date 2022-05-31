@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_24_153558) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_29_170336) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -58,6 +58,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_24_153558) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "notes", force: :cascade do |t|
+    t.string "message"
+    t.bigint "user_id"
+    t.string "notable_type"
+    t.bigint "notable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notable_type", "notable_id"], name: "index_notes_on_notable"
+    t.index ["user_id"], name: "index_notes_on_user_id"
+  end
+
   create_table "order_items", force: :cascade do |t|
     t.integer "status"
     t.integer "quantity", default: 0
@@ -85,6 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_24_153558) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "remarks"
     t.index ["branch_id"], name: "index_orders_on_branch_id"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
@@ -98,10 +110,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_24_153558) do
     t.integer "status"
     t.string "transaction_id"
     t.datetime "paid_at"
-    t.string "payment_method"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "remarks"
+    t.integer "payment_method"
     t.index ["order_id"], name: "index_payments_on_order_id"
   end
 
@@ -150,6 +162,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_24_153558) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "notes", "users"
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "payments", "orders"

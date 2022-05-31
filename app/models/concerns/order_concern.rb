@@ -2,6 +2,7 @@ module OrderConcern
   extend ActiveSupport::Concern
 
   included do
+    self.per_page = 25
     monetize :subtotal_cents, :total_cents
 
     def order_total_quantity
@@ -19,7 +20,7 @@ module OrderConcern
     end
 
     def paid?
-      payment.confirm?
+      payment.paid?
     end
 
     def empty_cart?

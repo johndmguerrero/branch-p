@@ -50,7 +50,7 @@ class OrderService
     payment.amount_paid = params[:received]
     payment.remarks = params[:remarks]
     payment.change_cents = payment.amount_paid_cents - order.total_cents
-    payment.confirm!
+    payment.paid!
   end
 
   def processed?

@@ -29,7 +29,7 @@
       <dt class="col-6 col-sm-4 text-sm py-1 text-heading font-semibold">Total</dt>
       <dd class="col-6 col-sm-8 text-sm text-end py-1 text-heading font-semibold text-end"><%= humanized_money_with_symbol order.total %></dd>
     </dl>
-    <% if order.payment.confirm? || order.payment.complete? %>
+    <% if order.payment.paid? %>
     <div class="border-bottom-2 mb-3 border-dashed border-secondary"></div>
     <p class="font-bold mb-3 text-center">Payment Transaction</p>
     <dl class="row mb-0">

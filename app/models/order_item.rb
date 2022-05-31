@@ -39,4 +39,10 @@ class OrderItem < ApplicationRecord
     product.update(quantity: product.quantity - quantity)
     complete!
   end
+
+  def revert_transaction
+    return true if void?
+    product.update(quantity: product.quantity + quantity)
+    void!
+  end
 end

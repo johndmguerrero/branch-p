@@ -55,7 +55,7 @@ gem 'devise'
 gem 'rails-observers'
 gem 'money-rails', '~>1.12'
 gem 'will_paginate', '~> 3.3.0'
-
+gem 'will_paginate-bootstrap-style'
 
 # Use Sass to process CSS
 # gem "sassc-rails"

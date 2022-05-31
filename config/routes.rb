@@ -29,6 +29,13 @@ Rails.application.routes.draw do
     end
   end
   resources :receipts
+  resources :orders do
+    member do
+      post :add_note
+      post :continue_cart
+      post :process_void
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

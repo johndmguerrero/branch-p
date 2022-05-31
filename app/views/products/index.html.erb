@@ -54,6 +54,9 @@
       <div class="py-5">
         <%= product_index_view %>
       </div>
+      <div class="card-footer">
+        <%= will_paginate @orders, page_links: false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+      </div>
     </div>
   </div>
 </main>

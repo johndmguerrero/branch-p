@@ -6,7 +6,7 @@ class PointOfSalesController < ApplicationController
 
   def index
     @order = current_order
-    @product = Product.order('products.category_id asc, name asc').group_by(&:category)
+    @product = Product.active.order('products.category_id asc, name asc').group_by(&:category)
   end
 
   def draft
