@@ -66,7 +66,7 @@ class PointOfSalesController < ApplicationController
 
   def complete
     @order = Order.find_by id: params[:id]
-    @order.complete!
+    @order.complete!(wallet: current_wallet)
     # @new_order = current_order
     redirect_to point_of_sales_path, flash: { notice: "Order ##{@order.order_number} completed!" }
   end

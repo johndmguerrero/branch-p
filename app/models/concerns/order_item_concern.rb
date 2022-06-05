@@ -3,7 +3,7 @@ module OrderItemConcern
 
   included do
 
-    monetize :subtotal_cents, :total_cents
+    monetize :subtotal_cents, :total_cents, :purchasing_price_cents
     
     def recalculate
       self.subtotal_cents = subtotal_per_quantity
@@ -12,7 +12,7 @@ module OrderItemConcern
     end
 
     def subtotal_per_quantity
-      quantity * product.price_cents
+      quantity * purchasing_price_cents
     end
   end
 

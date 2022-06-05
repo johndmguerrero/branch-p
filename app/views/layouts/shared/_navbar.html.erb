@@ -28,7 +28,7 @@
         </a>
         <a href="#!" class="dropdown-item">
           <i class="ni ni-settings-gear-65"></i>
-          <span>Settings</span>
+          <span>Attendance</span>
         </a>
         <a href="#!" class="dropdown-item">
           <i class="ni ni-calendar-grid-58"></i>
@@ -52,6 +52,9 @@
         <%= link_to point_of_sales_path, class:'nav-item nav-link' do %>
           Point of Sales
         <% end %>
+        <%= link_to wallets_path, class: 'nav-item nav-link' do %>
+          Wallet
+        <% end %>
         <%= link_to orders_path, class: 'nav-item nav-link' do %>
           Orders
         <% end %>
@@ -59,7 +62,6 @@
           Products
         <% end %>
         <a class="nav-item nav-link" href="#">Inventory</a>
-        <a class="nav-item nav-link" href="#">Settings</a>
       </div>
       <!-- Right navigation -->
       <div class="navbar-nav align-items-lg-center d-none d-lg-flex ms-lg-auto">

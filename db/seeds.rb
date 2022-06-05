@@ -12,6 +12,8 @@ branch.save
 owner = branch.users.create( email: 'owner@gmail.com', password: 'Testing123', password_confirmation: 'Testing123')
 owner.owner!
 
+wallet = branch.create_wallet!
+
 systad = branch.users.create( email: 'System@gmail.com', password: 'Testing123', password_confirmation: 'Testing123')
 
 

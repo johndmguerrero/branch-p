@@ -15,3 +15,6 @@ application.register("product", ProductController)
 
 import ToastController from "./toast_controller.js"
 application.register("toast", ToastController)
+
+import WalletController from "./wallet_controller.js"
+application.register("wallet", WalletController)

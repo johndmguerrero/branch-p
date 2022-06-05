@@ -1,0 +1,51 @@
+<%= form_with scope: :wallet_transactions, id: 'wallet-transaction', url: create_transaction_wallet_path(id: @wallet.id), method: :post, html: { autocomplete: 'off'}, data: { wallet_target: 'walletTransactionForm' } do |f| %>
+<div class="offcanvas offcanvas-end w-full w-sm-3/4 w-lg-1/3" data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="wallet-transaction-canvas" aria-labelledby="offcanvasExampleLabel">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="Label">Add Transaction</h5>
+    <button type="button" class="btn-close text-reset text-xs" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body pt-0">
+      <div>
+        <!-- Inputs -->
+        <div class="row g-5 mb-5">
+          <div class="col-md-12">
+            <div class="">
+              <%= f.label :type, 'Type of transaction', class: 'form-label'%>
+              <%= f.select :type, WalletTransaction.types, { prompt: true }, {class: 'form-select'} %>
+              <span class="d-block mt-2 text-sm text-muted">Please specify what kind Transaction</span>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="">
+              <label class="form-label" for="company">Wallet Balance</label>
+              <div class="input-group input-group-inline shadow-none border-none">
+                <span class="input-group-text shadow-none border-none" id="">
+                  &#8369;
+                </span>
+                <input data-wallet-target="walletBalance" type="text" class="form-control wallet-balance border-none shadow-none" readonly="readonly" placeholder="&#8369; 10.00" value="<%= @wallet.balance %>">
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="">
+              <%= f.label :amount_cents, 'Amount', class: 'form-label' %>
+              <%= f.text_field :amount_cents, class: 'form-control', data: { wallet_target: 'amountField' } %>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="">
+              <%= f.label :remarks, 'Remarks', class: 'form-label' %>
+              <%= f.text_area :remarks, class: 'form-control', rows: 4 %>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  <div class="modal-footer bg-surface-secondary">
+    <button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="offcanvas">Close</button>
+    <%= f.button type: 'submit', class: 'btn btn-sm btn-primary', data: { action: 'wallet#submitWalletTransaction' } do %>
+      Save
+    <% end %>
+  </div>
+</div>
+<% end %>
