@@ -34,9 +34,17 @@ class Order < ApplicationRecord
   has_many :order_items, dependent: :destroy
   has_many :notes, as: :notable
 
-  def complete!
+  def complete!(wallet:)
     order_items.map(&:complete_transaction)
-    super
+    completed_at = Time.now
+    self.status = :complete
+    WalletTransactions::Order.create(
+      amount_cents: total_cents,
+      remarks: "complete order #{order_number}",
+      user: user,
+      wallet: wallet
+    )
+    save
   end
 
   def void_order(by:, message:)

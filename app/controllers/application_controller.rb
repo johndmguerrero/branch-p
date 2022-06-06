@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
   def current_branch
     @current_branch ||= current_user.branch
   end
+
+  def current_wallet
+    @current_wallet ||= current_branch.wallet
+  end
 end

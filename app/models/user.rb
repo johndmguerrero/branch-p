@@ -40,6 +40,7 @@ class User < ApplicationRecord
   belongs_to :branch
   
   has_many :orders
+  has_many :notes
 
   def avatar_name
     email.chars.first

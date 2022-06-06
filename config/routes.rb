@@ -36,6 +36,12 @@ Rails.application.routes.draw do
       post :process_void
     end
   end
+  resources :wallets do
+    member do
+      post :create_transaction
+      post :complete_transaction
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

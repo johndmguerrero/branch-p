@@ -1,4 +1,4 @@
-<div class="w-full w-md-2/5 mx-auto">
+<div class="w-full w-md-2/5 mx-auto ">
   <div class="card shadow p-5 mb-5">
     <p class="text-center font-bold mb-3">
       Receipt
@@ -40,9 +40,11 @@
     </dl>
     <% end %>
   </div>
-  <%= render partial: 'point_of_sales/partials/checkout/offcanvas_form', locals: { order: order } %>
-  <%= button_to complete_point_of_sale_path(id: @order.id), class: 'btn btn-success w-full shadow', method: :post, form: { data: { turbo: false } } do %>
-    <span class="d-sm-inline-block">Complete Order</span>
-  <% end if order.pending? && order.paid? %>
+  <div class="px-3">  
+    <%= render partial: 'point_of_sales/partials/checkout/offcanvas_form', locals: { order: order } %>
+    <%= button_to complete_point_of_sale_path(id: @order.id), class: 'btn btn-success w-full shadow', method: :post, form: { data: { turbo: false } } do %>
+      <span class="d-sm-inline-block">Complete Order</span>
+    <% end if order.pending? && order.paid? %>
+  </div>
 </div>
 

@@ -1,0 +1,88 @@
+<div class="" data-controller="wallet">
+  <header class="pt-7 bg-primary shadow border-bottom">
+    <div class="container-xl">
+      <div class="">
+        <div class="row">
+          <div class="col-lg-12">
+            <!-- Salute + Small stats -->
+            <div class="row align-items-center mb-4">
+              <div class="col-md-5 mb-4 mb-md-0">
+                <h1 class="mb-1 text-white"><%= humanized_money_with_symbol @wallet.balance %></h1>
+                <span class="text-white">Today Balance</span>
+                <p class="text-white text-opacity-80 font-bold d-none">Previous Balance: <%# humanized_money_with_symbol 20.003 %></p>
+              </div>
+              <div class="col-auto flex-fill">
+                <ul class="list-inline d-flex justify-content-md-end mb-0">
+                  <li class="list-inline-item">
+                    <div class="bg-shade-primary px-4 py-2 rounded">
+                      <span class="badge badge-dot text-white">
+                        <i class="bg-success"></i>Order
+                      </span>
+                      <span class="d-sm-block mt-1 h5 text-white font-bold">
+                        <%= humanized_money_with_symbol(@sum_today_order.sum) %>
+                      </span>
+                    </div>
+                  </li>
+                  <li class="list-inline-item">
+                    <div class="bg-shade-primary px-4 py-2 rounded">
+                      <span class="badge badge-dot text-white">
+                        <i class="bg-warning"></i>Expenses
+                      </span>
+                      <span class="d-sm-block mt-1 h5 text-white font-bold">
+                        <%= humanized_money_with_symbol(@sum_today_expense.sum) %>
+                      </span>
+                    </div>
+                  </li>
+                  <li class="list-inline-item">
+                    <div class="bg-shade-primary px-4 py-2 rounded">
+                      <span class="badge badge-dot text-white">
+                        <i class="bg-danger"></i>Withdraw
+                      </span>
+                      <span class="d-sm-block mt-1 h5 text-white font-bold">
+                        <%= humanized_money_with_symbol(@sum_today_withdraw.sum) %>
+                      </span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- Account navigation -->
+            <div class="d-flex position-relative transform translate-y-1/2">
+              <!-- Button Icon Text -->
+              <a data-bs-toggle="offcanvas" href="#wallet-transaction-canvas"  class="btn btn-sm btn-neutral border-0 shadow">
+                <span class="bi bi-wallet2 pe-2"></span>
+                <span class="d-inline-block">Create Transaction</span>
+              </a>
+              <div class="btn-group ms-auto" role="group" aria-label="Basic example">
+                <%# <a href="#" class="btn btn-icon btn-sm btn-neutral shadow border-0 d-none">
+                  <i class="bi bi-gear me-2"></i>
+                  <span class="d-none d-sm-inline-block">Settings</span>
+                </a> %>
+                <a href="#" class="btn btn-icon btn-sm btn-neutral shadow border-0 d-none">
+                  <i class="bi bi-bar-chart me-2"></i>
+                  <span class="d-none d-sm-inline-block">Create Transaction</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+  <!-- Main content -->
+  <main class="py-10 bg-surface-secondary">
+    <!-- Container -->
+    <div class="container-xl">
+      <div class="bg-card rounded shadow-sm">
+        <div class="py-5">
+          <%= wallet_index_view %>
+        </div>
+        <div class="card-footer">
+          <%= will_paginate @wallet_transactions, page_links: false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+        </div>
+      </div>
+    </div>
+  </main>
+  <%= render partial: 'wallets/partials/transaction_offcanvas' %>
+</div>
+

@@ -2,17 +2,19 @@
 #
 # Table name: order_items
 #
-#  id                :bigint           not null, primary key
-#  quantity          :integer          default(0)
-#  status            :integer
-#  subtotal_cents    :integer          default(0), not null
-#  subtotal_currency :string           default("PHP"), not null
-#  total_cents       :integer          default(0), not null
-#  total_currency    :string           default("PHP"), not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
-#  order_id          :bigint
-#  product_id        :bigint
+#  id                        :bigint           not null, primary key
+#  purchasing_price_cents    :integer          default(0), not null
+#  purchasing_price_currency :string           default("PHP"), not null
+#  quantity                  :integer          default(0)
+#  status                    :integer
+#  subtotal_cents            :integer          default(0), not null
+#  subtotal_currency         :string           default("PHP"), not null
+#  total_cents               :integer          default(0), not null
+#  total_currency            :string           default("PHP"), not null
+#  created_at                :datetime         not null
+#  updated_at                :datetime         not null
+#  order_id                  :bigint
+#  product_id                :bigint
 #
 # Indexes
 #

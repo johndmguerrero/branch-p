@@ -2,7 +2,7 @@ module OrderConcern
   extend ActiveSupport::Concern
 
   included do
-    self.per_page = 25
+    self.per_page = 10
     monetize :subtotal_cents, :total_cents
 
     def order_total_quantity

@@ -1,0 +1,59 @@
+<div class="table-responsive">
+  <table class="table table-hover table-nowrap">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Transaction</th>
+        <th scope="col" class="text-end">Amount</th>
+        <th scope="col">Remarks</th>
+        <th scope="col">Status</th>
+        <th scope="col">Created at</th>
+        <th scope="col">Process by</th>
+        <% if current_user.owner? %>
+          <th></th>
+        <% end %>
+      </tr>
+    </thead>
+    <tbody>
+      <% @wallet_transactions.each do |transaction| %>
+      <tr>
+        <td>
+          <a href="#" class="badge badge-lg badge-dot text-heading font-semibold">
+            <i class="bg-<%= wallet_transaction_index_type(transaction.type&.demodulize) %>"></i><%= transaction.type&.demodulize %>
+          </a>
+        </td>
+        <td class="text-end">
+          <p><%= humanized_money_with_symbol transaction.amount %><span class="ms-2 font-bold">PHP</span></p>
+        </td>
+        <td>
+          <%= transaction.remarks %>
+        </td>
+        <td>
+          <%= wallet_transaction_index_status(transaction.status) %>
+        </td>
+        <td>
+          <%= transaction.created_at.strftime("%a, %b %d %Y")%>
+        </td>
+        <td>
+          <%= transaction.user.email %>
+        </td>
+        <% if current_user.owner? && transaction.pending? %>
+          <td class="text-end">
+            <div class="dropdown">
+              <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <%= button_to complete_transaction_wallet_path(transaction.id), class: 'dropdown-item text-primary', method: :post, form_class: 'd-inline' do %>
+                  Approve
+                <% end if transaction.pending? %>
+              </div>
+            </div>
+          </td>
+        <% else %>
+          <td></td>
+        <% end %>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
