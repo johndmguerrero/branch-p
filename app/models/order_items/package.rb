@@ -27,29 +27,30 @@
 #  fk_rails_...  (order_id => orders.id)
 #  fk_rails_...  (product_id => products.id)
 #
-class OrderItem < ApplicationRecord
-  default_scope { includes(:product).order('id desc') }
+module OrderItems
+  class Package < OrderItem
+    default_scope { includes(:product_items) }
 
-  include OrderItemConcern
+    include OrderItemConcern
 
-  enum status: [:pending, :void, :complete], _default: "pending"
+    has_many :product_items, foreign_key: 'order_item_id'
+    belongs_to :product, with_deleted: true
+    belongs_to :order
 
-  belongs_to :order
-  belongs_to :product, with_deleted: true
+    accepts_nested_attributes_for :product_items
 
-  def package?
-    false
-  end
+    def package?
+      true
+    end
+    
+    def description
+      product_items&.map(&:description).to_sentence
+    end
 
-  def complete_transaction
-    return true if complete?
-    product.update(quantity: product.quantity - quantity)
-    complete!
-  end
-
-  def revert_transaction
-    return true if void?
-    product.update(quantity: product.quantity + quantity)
-    void!
+    def complete_transaction
+      return true if complete?
+      product_items&.map(&:deduct_to_product)
+      complete!
+    end
   end
 end

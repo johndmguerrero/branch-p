@@ -7,7 +7,9 @@
         <div class="product-card card shadow mb-5"
             data-action="click->point-of-sales#addCart" 
             data-point-of-sales-id-param="<%= product.id %>"
+            data-point-of-sales-name-param="<%= product.name %>"
             data-point-of-sales-order-id-param="<%= @current_order.id %>"
+            data-point-of-sales-product-type-param="<%= product.type&.demodulize&.downcase || "null" %>"
           >
           <div class="card-body">
             <div class="d-flex">

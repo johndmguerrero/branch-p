@@ -7,6 +7,7 @@ class PointOfSalesController < ApplicationController
   def index
     @order = current_order
     @product = Product.active.order('products.category_id asc, name asc').group_by(&:category)
+    @products = Product.where(type: [nil, 'Product'])
   end
 
   def draft
@@ -71,6 +72,28 @@ class PointOfSalesController < ApplicationController
     redirect_to point_of_sales_path, flash: { notice: "Order ##{@order.order_number} completed!" }
   end
 
+  def add_package_item
+    @order = Order.includes(:order_items).find_by id: params[:id]
+    order_item = OrderService.new(order: @order, params: order_item_package_params)
+    order_package = order_item.add_package_to_cart
+    
+    respond_to do |format|
+      format.turbo_stream do 
+        render turbo_stream: [
+          turbo_stream.update('cart-offcanvas-body', partial: 'point_of_sales/partials/cart_offcanvas_body', locals: { order: @order }),
+          turbo_stream.update('header-order-info', partial: 'point_of_sales/partials/header_order_info', locals: { order: @order }),
+          turbo_stream.update('checkout_form', partial: 'point_of_sales/partials/checkout/offcanvas_body', locals: { order: @order })
+        ]
+      end 
+      format.json { render json: @item.response }
+    end
+  end
+
+  def search_product
+    @products = Product.search_by_keyword(params[:q]).where(type: [nil, 'Product'])
+    render layout: false
+  end
+
   private
 
   def set_order
@@ -83,5 +106,17 @@ class PointOfSalesController < ApplicationController
 
   def set_order_item
     @item = OrderItem.find_by id: params[:id]
+  end
+
+  def order_item_package_params
+    params.require(:order_items_package).permit(
+      :product_id,
+      :order_id,
+      :type,
+      product_items_attributes: [
+        :quantity,
+        :product_id
+      ]
+    )
   end
 end

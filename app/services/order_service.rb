@@ -53,6 +53,16 @@ class OrderService
     payment.paid!
   end
 
+  def add_package_to_cart
+    return false if params[:product_items_attributes].blank?
+    order_package = order.order_items.create(type: params[:type], product_id: params[:product_id])
+    params[:product_items_attributes].each do |item, value|
+      product_items = order_package.product_items.create(value)
+    end
+
+    order_package
+  end
+
   def processed?
     processed == true
   end

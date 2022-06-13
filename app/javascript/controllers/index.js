@@ -18,3 +18,9 @@ application.register("toast", ToastController)
 
 import WalletController from "./wallet_controller.js"
 application.register("wallet", WalletController)
+
+import NestedForm from 'stimulus-rails-nested-form'
+application.register('nested-form', NestedForm)
+
+import { Autocomplete } from 'stimulus-autocomplete'
+application.register('autocomplete', Autocomplete)

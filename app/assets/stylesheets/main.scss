@@ -41,3 +41,8 @@ body{
 .checkout-change-input{
   background-color: transparent !important;
 }
+
+#product_type_product:checked + label .box-label,
+#product_type_productspackage:checked + label .box-label{
+  border-color: $primary;
+}

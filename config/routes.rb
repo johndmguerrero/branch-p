@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       post :draft
       post :confirm_and_complete_order
       post :complete
+      post :add_package_item
     end
   end
   resources :products do
@@ -28,6 +29,7 @@ Rails.application.routes.draw do
       post :recover
     end
   end
+
   resources :receipts
   resources :orders do
     member do

@@ -4,7 +4,13 @@ import inputmask from "inputmask";
 
 // Connects to data-controller="point-of-sales"
 export default class extends Controller {
-  static targets = ["confirmFormTag", "amountToPay", "received"]
+  static targets = ["confirmFormTag", 
+                    "amountToPay", 
+                    "received", 
+                    "packageOrderDetailModal", 
+                    "orderDetailPackageModalTitle",
+                    "PackageProductId"
+                  ]
 
   initialize(){
     this.maskInput(this.amountToPayTarget)
@@ -16,6 +22,8 @@ export default class extends Controller {
     var offcanvasList = offcanvasElementList.map(function (offcanvasEl) {
       return new bootstrap.Offcanvas(offcanvasEl)
     })
+
+    window.PackageOrderDetail = new bootstrap.Modal(this.packageOrderDetailModalTarget, {keyboard: false})
 
     this.bindConfirmFromValidation(this.confirmFormTagTarget)
 
@@ -32,23 +40,29 @@ export default class extends Controller {
     }, "Please input Greater Amount");
   }
 
-  addCart({params: { id, orderId}}) {
+  addCart({params: { id, orderId, productType, name}}) {
     const payload = {
       id: id,
-      order_id: orderId
+      order_id: orderId,
     }
 
-    fetch(`point_of_sales/${id}/add_to_cart.turbo_stream`,{
-      method: 'POST',
-      headers: {
-        "X-CSRF-Token": this.getMetaValue("csrf-token"),
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(payload)
-    }).then( response => response.text())
-      .then((response) => {
-      Turbo.renderStreamMessage(response)
-    }).catch(e => console.log(e))
+    if(productType == 'package'){
+      window.PackageOrderDetail.show()
+      this.orderDetailPackageModalTitleTarget.innerHTML = name
+      this.PackageProductIdTarget.value = id
+    }else{
+      fetch(`point_of_sales/${id}/add_to_cart.turbo_stream`,{
+        method: 'POST',
+        headers: {
+          "X-CSRF-Token": this.getMetaValue("csrf-token"),
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      }).then( response => response.text())
+        .then((response) => {
+        Turbo.renderStreamMessage(response)
+      }).catch(e => console.log(e))
+    }
   }
 
   removeItem({params: { itemId, orderId }}){
