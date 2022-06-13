@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_31_200620) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_06_235531) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -82,6 +82,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_31_200620) do
     t.datetime "updated_at", null: false
     t.integer "purchasing_price_cents", default: 0, null: false
     t.string "purchasing_price_currency", default: "PHP", null: false
+    t.string "type"
     t.index ["order_id"], name: "index_order_items_on_order_id"
     t.index ["product_id"], name: "index_order_items_on_product_id"
   end
@@ -119,6 +120,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_31_200620) do
     t.index ["order_id"], name: "index_payments_on_order_id"
   end
 
+  create_table "product_items", force: :cascade do |t|
+    t.bigint "order_item_id"
+    t.bigint "product_id"
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_item_id"], name: "index_product_items_on_order_item_id"
+    t.index ["product_id"], name: "index_product_items_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.string "description"
@@ -133,6 +144,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_31_200620) do
     t.integer "status"
     t.integer "quantity", default: 0
     t.datetime "deleted_at"
+    t.string "type"
     t.index ["branch_id"], name: "index_products_on_branch_id"
     t.index ["category_id"], name: "index_products_on_category_id"
     t.index ["deleted_at"], name: "index_products_on_deleted_at"

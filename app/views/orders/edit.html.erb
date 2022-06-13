@@ -82,6 +82,7 @@
                   <div class="d-flex justify-content-between">
                     <div>
                       <h6 class="progress-text mb-0 d-block"><%= item.product.name %> - <%= item.quantity %>x</h6>
+                      <p class="ps-4"><%= item.description if item.package? %></p>
                     </div>
                     <div class="text-end">
                       <span class="h6 text-sm"><%= humanized_money_with_symbol(item.total) %> PHP</span>

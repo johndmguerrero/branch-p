@@ -16,6 +16,34 @@
               <%= select :product, :category_id, @category.collect { |cat| [cat.name, cat.id]}, { prompt: true }, { class: "form-select" } %>
             </div>
             <div class="col-md-12">
+              <h5 class="form-label">Type</h5>
+              <div class="row">
+                <div class="col-sm-6">
+                  <%= f.radio_button :type, Product, value: nil, class: 'd-none', checked: true %>
+                  <%= f.label :type, 'Product', class: 'w-full', value: 'product' do %>
+                    <div class="box-label d-flex align-items-center border-2 border-primary-hover font-bold px-4 py-3 rounded-2 transition-all ease-in-out duration-300">
+                      <div class="w-8">
+                        <i class="bi bi-box-seam text-lg"></i>
+                      </div>
+                      <span class="">Single Product</span>
+                    </div>
+                  <% end %>
+                </div>
+                <div class="col-sm-6">
+                  <%= f.radio_button :type, Products::Package, value: 'Products::Package', class: 'd-none' %>
+                  <%= f.label :type, 'Package', class: 'w-full', value: 'productspackage' do %>
+                    <div class="box-label d-flex align-items-center border-2 border-primary-hover font-bold px-4 py-3 rounded-2 transition-all ease-in-out duration-300">
+                      <div class="w-8">
+                        <i class="bi bi-boxes text-lg"></i>
+                      </div>
+                      <span class="">Package</span>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+
+            </div>
+            <div class="col-md-12">
               <%= f.label :description, 'Description', class: 'form-label' %>
               <%= f.text_area :description, class: 'form-control', placeholder: 'Product description...', rows: 3 %>
             </div>

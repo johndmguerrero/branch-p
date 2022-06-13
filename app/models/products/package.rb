@@ -24,26 +24,9 @@
 #  index_products_on_category_id  (category_id)
 #  index_products_on_deleted_at   (deleted_at)
 #
-class Product < ApplicationRecord
-  default_scope { includes(:category) }
-  include PgSearch::Model
-  include ProductConcern
-  acts_as_paranoid
+module Products
+  class Package < Product
+    
 
-  enum status: [:active, :archived], _default: 'active'
-
-  belongs_to :branch
-  belongs_to :category, class_name: 'Categories::Product'
-
-  has_one_attached :image
-
-  scope :deleted, -> { self.only_deleted }
-  scope :archived, -> { where(status: [:archived]) }
-
-  pg_search_scope :search_by_keyword, against: :name,
-                                      using: { tsearch: { prefix: true, any_word: true } }
-
-  def thumbnail_image
-    image.variant(resize: '256x256!')
   end
 end

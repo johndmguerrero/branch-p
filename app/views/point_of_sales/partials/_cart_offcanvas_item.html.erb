@@ -12,7 +12,13 @@
       <!-- Title -->
     <span class="d-block h6 text-sm font-bold mb-1"><%= item.product.name %></span>
     <!-- Subtitle -->
-    <span class="d-block text-xs text-muted"><%= item.quantity %> <%= "piece".pluralize(item.quantity) %></span>
+    <span class="d-block text-xs text-muted">
+    <% if item.package? %>
+      <%= item.description %>
+    <% else %>
+      <%= item.quantity %> <%= "piece".pluralize(item.quantity) %>
+    <% end %>
+    </span>
   </div>
   <% if !item.order.paid? %>
   <div class="ms-auto">
