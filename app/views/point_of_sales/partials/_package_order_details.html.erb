@@ -1,0 +1,39 @@
+<div class="modal fade" id="order_detail_package" tabindex="-1" aria-labelledby="" aria-hidden="true" data-point-of-sales-target="packageOrderDetailModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-3">
+      <div class="modal-header">
+        <div class="icon icon-shape rounded-3 bg-soft-primary text-primary text-lg me-4">
+          <i class="bi bi-boxes"></i>
+        </div>
+        <div class="">
+          <h5 class="mb-1">Content for <span data-point-of-sales-target="orderDetailPackageModalTitle">Product</span></h5>
+          <small class="d-block text-xs text-muted">Modify Package content</small>
+        </div>
+        <div class="ms-auto">
+        </div>
+      </div>
+      <%= form_with model: @order.order_items.new(type: 'OrderItems::Package'), url: add_package_item_point_of_sale_path(id: @order.id), method: :post, data: { controller: 'nested-form', nested_form_wrapper_selector_value: '.nested-form-wrapper' } do |f| %>
+        <div class="modal-body">
+          <%= f.hidden_field :product_id, data: { point_of_sales_target: 'PackageProductId' } %>
+          <%= f.hidden_field :type, value: 'OrderItems::Package' %>
+          <template data-nested-form-target="template">
+            <%= f.fields_for :product_items, ProductItem.new, child_index: 'NEW_RECORD' do |product_item| %>
+              <%= render partial: 'point_of_sales/partials/package/package_order_items', locals: { product_item: product_item }%>
+            <% end %>
+          </template>
+
+          <div data-nested-form-target="target"></div>
+          <div class="me-auto">
+            <a class="text-sm w-full btn btn-default shadow btn-neutral border-base font-semibold" data-action="click->nested-form#add"><i class="bi bi-plus-lg me-2"></i>Add Item</a>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="modal">Close</button>
+          <%= f.button type: 'submit', class: 'btn btn-sm btn-success' do %>
+            Save Package
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

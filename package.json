@@ -12,7 +12,9 @@
     "inputmask": "^5.0.7",
     "jquery": "^3.6.0",
     "jquery-validation": "^1.19.3",
-    "sass": "^1.51.0"
+    "sass": "^1.51.0",
+    "stimulus-autocomplete": "^3.0.2",
+    "stimulus-rails-nested-form": "^4.0.0"
   },
   "scripts": {
     "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds",
