@@ -14,6 +14,7 @@
     "jquery-validation": "^1.19.3",
     "sass": "^1.51.0",
     "stimulus-autocomplete": "^3.0.2",
+    "stimulus-password-visibility": "^2.0.0",
     "stimulus-rails-nested-form": "^4.0.0"
   },
   "scripts": {

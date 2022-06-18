@@ -40,7 +40,7 @@
     </dl>
     <% end %>
   </div>
-  <div class="px-3">  
+  <div class="">  
     <%= render partial: 'point_of_sales/partials/checkout/offcanvas_form', locals: { order: order } %>
     <%= button_to complete_point_of_sale_path(id: @order.id), class: 'btn btn-success w-full shadow', method: :post, form: { data: { turbo: false } } do %>
       <span class="d-sm-inline-block">Complete Order</span>

@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="table-responsive">
+    <table class="table table-hover table-nowrap">
+      <thead class="">
+        <tr>
+          <th scope="col">Email</th>
+          <th scope="col">Created at</th>
+          <th scope="col">Role</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @staffs.each do |staff| %>
+          <tr>
+            <td><%= staff.email %></td>
+            <td><%= staff.created_at %></td>
+            <td><span class="badge text-uppercase bg-soft-warning text-warning rounded-pill"><%= staff.role %></span></td>
+            <td class="text-end">
+              <%= link_to edit_staff_path(id: staff.id), class: 'btn btn-sm btn-square btn-neutral' do %>
+                <i class="bi bi-pencil"></i>
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

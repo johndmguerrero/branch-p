@@ -1,0 +1,35 @@
+<div class="table-responsive">
+  <table class="table table-hover table-nowrap">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Remarks</th>
+        <th scope="col">State</th>
+        <th scope="col">Late</th>
+        <th scope="col">time stamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% attendances.each do |attendance| %>
+        <tr>
+          <td>
+            <p><%= attendance.remarks %></p>
+          </td>
+          <td>
+            <%= attendance.state.titleize %>
+          </td>
+          <td>
+            <% if attendance.late %>
+              <span class="badge bg-soft-danger text-danger">late</span>
+            <% end %>
+          </td>
+          <td>
+            <%= attendance.created_at.to_fs(:time) %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<div class="card-footer text-center">
+  <%= will_paginate @attendances, page_links: false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+</div>

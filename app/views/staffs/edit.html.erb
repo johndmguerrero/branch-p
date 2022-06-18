@@ -1,0 +1,136 @@
+<header class="bg-surface-secondary pt-3">
+  <div class="container">
+    <div class="row g-0">
+      <div class="col pt-4">
+        <h6 class="text-xs text-uppercase text-muted mb-1"><%= @staff.role %></h6>
+        <h1 class="h2"><%= @staff.display_name %></h1>
+      </div>
+      <div class="col-12 col-md-auto mt-2 mt-md-0 mb-md-3 hstack gap-2 mt-4 mt-sm-0">
+        <%= link_to staffs_path, class: 'btn btn-sm btn-neutral' do %>
+          Back
+        <% end %>
+        <%= staff_set_status_btn %>
+    </div>
+    <ul class="nav nav-tabs overflow-x ms-1 mt-4">
+      <li class="nav-item"><a href="#!" class="nav-link active font-bold">Information</a></li>
+      <li class="nav-item"><a href="#!" class="nav-link">Attendance</a></li>
+      <li class="nav-item"><a href="#!" class="nav-link">Security</a></li>
+    </ul>
+  </div>
+</header>
+<main class="py-6 bg-surface-secondary" data-controller="staffs">
+  <div class="container">
+    <%= form_with model: @staff, url: staff_path(id: @staff.id), scope: :staff, method: :patch, html: { autocomplete: 'disabled'} do |f| %>
+      <div class="row g-6">
+        <div class="col-xl-8">
+          <div class="vstack gap-6">
+            <div>
+                <div class="row g-5">
+                  <div class="col-md-6">
+                    <div>
+                      <%= f.label :first_name, "First name", class: 'form-label' %>
+                      <%= f.text_field :first_name, class: "form-control" %>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div>
+                      <%= f.label :last_name, "Last name", class: 'form-label' %>
+                      <%= f.text_field :last_name, class: "form-control" %>
+                    </div>
+                  </div>
+                  <div class="col-md-12">
+                    <div>
+                      <%= f.label :address, "Address", class: 'form-label' %>
+                      <%= f.text_area :address, class: 'form-control', rows: 5 %>
+                    </div>
+                  </div>
+
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-4">
+          <div class="vstack gap-6">
+            <div class="card">
+              <div class="card-body">
+                <label class="form-label">Select Role</label>
+                <div class="hstack gap-3">
+                  <% User.roles.keys.each do |role| %>
+                    <% next if role == "owner" %>
+                    <div class="form-item-checkable">
+                      <%= f.radio_button :role, role, value: role, class: 'form-item-check' %>
+                      <%= f.label :role, role , class: 'form-item d-flex flex-column align-items-center', value: role do %>
+                        <span class="form-item-click border-2 d-inline-flex align-items-center justify-content-center form-control w-24 h-24 text-center text-muted">
+                          <%# <i class="bi bi-kanban" style="font-size:2rem"></i> %>
+                          <span><%= role.capitalize %></span>
+                        </span>
+                      <% end %>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 text-end">
+          <%= f.button type: 'submit', class: 'btn btn-sm btn-primary' do %>
+            Save
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+    <hr class="my-3">
+    <div class="mb-5">
+      <div class="mb-7">
+        <h4 class="font-bold mb-1">Security</h4>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="h4 mb-5">Change password</h5>
+          <div class="col-md-12" data-controller="password-visibility">
+            <%= form_with scope: :security, url: update_password_staff_path(id: @staff.id), id: 'reset-password-staff', method: :post, html: { autocomplete: 'disabled' } do |t| %>
+              <div class="row mb-5">
+                <div class="col-md-6">
+                  <div class="d-flex align-items-center">
+                    <%= t.label :password, "New password", class: 'form-label' %>
+                    <div class="ms-auto">
+                      <span class="text-primary text-sm cursor-pointer" data-action="click->password-visibility#toggle">
+                        <span data-password-visibility-target="icon">
+                          Show password
+                        </span>
+                        <span data-password-visibility-target="icon" class="hidden">
+                          Hide password
+                        </span>
+                      </span>
+                    </div>
+                  </div>
+                  <%= t.password_field :password, class: 'form-control', data: { password_visibility_target: "input" } %>
+                </div>
+                <div class="col-md-6">
+                  <div>
+                    <%= t.label :password_confirmation, "Password confirmation", class: 'form-label' %>
+                    <%= t.password_field :password_confirmation, class: 'form-control' %>
+                  </div>
+                </div>
+              </div>
+              <div class="text-end">
+                <%= t.button type: 'submit', class: 'btn btn-sm btn-primary' do %>
+                  Change password
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </div>    
+      </div>
+    </div>
+    <div class="mb-5">
+      <div class="mb-7">
+        <h4 class="font-bold mb-1">Attendance</h4>
+      </div>
+      <div class="card">
+        <%= render partial: 'profiles/partials/attendances_tables', locals: { attendances: @attendances } %>
+      </div>
+    </div>
+
+  </div>
+</main>
