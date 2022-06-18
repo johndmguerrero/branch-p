@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_06_235531) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_18_095236) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -42,12 +42,27 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_06_235531) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "attendances", force: :cascade do |t|
+    t.bigint "user_id"
+    t.boolean "late", default: false
+    t.integer "state"
+    t.string "remarks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.time "branch_opening_time"
+    t.time "branch_closing_time"
+    t.time "stamp"
+    t.index ["user_id"], name: "index_attendances_on_user_id"
+  end
+
   create_table "branches", force: :cascade do |t|
     t.string "name"
     t.string "address"
     t.integer "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.time "opens_at"
+    t.time "close_at"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -169,6 +184,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_06_235531) do
     t.string "current_sign_in_ip"
     t.string "last_sign_in_ip"
     t.integer "role"
+    t.integer "status"
     t.index ["branch_id"], name: "index_users_on_branch_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -13,6 +13,9 @@ application.register("point-of-sales", PointOfSalesController)
 import ProductController from "./product_controller.js"
 application.register("product", ProductController)
 
+import StaffsController from "./staffs_controller.js"
+application.register("staffs", StaffsController)
+
 import ToastController from "./toast_controller.js"
 application.register("toast", ToastController)
 
@@ -24,3 +27,6 @@ application.register('nested-form', NestedForm)
 
 import { Autocomplete } from 'stimulus-autocomplete'
 application.register('autocomplete', Autocomplete)
+
+import PasswordVisibility from 'stimulus-password-visibility'
+application.register('password-visibility', PasswordVisibility)

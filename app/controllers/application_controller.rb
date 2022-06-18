@@ -15,4 +15,8 @@ class ApplicationController < ActionController::Base
   def current_wallet
     @current_wallet ||= current_branch.wallet
   end
+
+  def void_staff_access
+    redirect_to profiles_path if current_user.staff? || current_user.admin?
+  end
 end
