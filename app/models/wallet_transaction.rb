@@ -40,10 +40,10 @@ class WalletTransaction < ApplicationRecord
 
   monetize :amount_cents
 
-  scope :today_total_expense, -> { where('created_at >= ? and wallet_transactions.type = ?', Time.zone.now.beginning_of_day, "WalletTransactions::Expense") }
-  scope :today_total_withdraw, -> { where('created_at >= ? and wallet_transactions.type = ?', Time.zone.now.beginning_of_day, "WalletTransactions::Withdraw") }
-  scope :today_total_deposit, -> { where('created_at >= ? and wallet_transactions.type = ?', Time.zone.now.beginning_of_day, "WalletTransactions::Deposit") }
-  scope :today_total_order, -> { where('created_at >= ? and wallet_transactions.type = ?', Time.zone.now.beginning_of_day, "WalletTransactions::Order") }
+  scope :today_total_expense, -> { complete.where('created_at >= ? and wallet_transactions.type = ?', Time.zone.now.beginning_of_day, "WalletTransactions::Expense") }
+  scope :today_total_withdraw, -> { complete.where('created_at >= ? and wallet_transactions.type = ?', Time.zone.now.beginning_of_day, "WalletTransactions::Withdraw") }
+  scope :today_total_deposit, -> { complete.where('created_at >= ? and wallet_transactions.type = ?', Time.zone.now.beginning_of_day, "WalletTransactions::Deposit") }
+  scope :today_total_order, -> { complete.where('created_at >= ? and wallet_transactions.type = ?', Time.zone.now.beginning_of_day, "WalletTransactions::Order") }
 
 
   def self.types

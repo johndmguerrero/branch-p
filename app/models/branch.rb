@@ -4,7 +4,9 @@
 #
 #  id         :bigint           not null, primary key
 #  address    :string
+#  close_at   :time
 #  name       :string
+#  opens_at   :time
 #  status     :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

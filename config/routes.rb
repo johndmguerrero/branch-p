@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users, controllers: {
+    sessions: 'users/sessions'
+  }
 
   devise_scope :user do
     authenticated :user do
@@ -42,6 +44,20 @@ Rails.application.routes.draw do
     member do
       post :create_transaction
       post :complete_transaction
+    end
+  end
+  resources :profiles do
+    member do
+      post :stamp
+      post :reset_password
+    end
+  end
+
+  resources :staffs do
+    member do
+      post :archive
+      post :active
+      post :update_password
     end
   end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

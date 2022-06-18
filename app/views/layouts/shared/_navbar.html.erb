@@ -20,24 +20,17 @@
       </a>
       <div class="dropdown-menu dropdown-menu-end">
         <div class="dropdown-header">
-          <h6 class="text-overflow m-0">Welcome!</h6>
+          <span class="d-block text-sm text-muted mb-1">Signed in as</span>
+          <span class="d-block text-heading font-semibold"><%= current_user.email %></span>
         </div>
-        <a href="#!" class="dropdown-item">
-          <i class="ni ni-single-02"></i>
-          <span>My profile</span>
-        </a>
-        <a href="#!" class="dropdown-item">
+        <div class="dropdown-divider"></div>
+        <%= link_to profiles_path, class: 'dropdown-item' do %>
           <i class="ni ni-settings-gear-65"></i>
-          <span>Attendance</span>
-        </a>
-        <a href="#!" class="dropdown-item">
-          <i class="ni ni-calendar-grid-58"></i>
-          <span>Activity</span>
-        </a>
-        <a href="#!" class="dropdown-item">
-          <i class="ni ni-support-16"></i>
-          <span>Support</span>
-        </a>
+          <span>My profile</span>
+        <% end if current_user.staff? %>
+        <%= link_to staffs_path, class: 'dropdown-item' do %>
+          <span>My Staffs</span>
+        <% end if current_user.owner? %>
         <div class="dropdown-divider"></div>
         <%= button_to destroy_user_session_path, method: 'delete', class: "dropdown-item" do %>
           <i class="ni ni-user-run"></i>

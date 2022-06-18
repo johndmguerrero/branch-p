@@ -3,7 +3,7 @@
     <div class="rounded px-2 py-2 mb-2 border">
       <div class="row align-items-center">
         <div class="col-12 mb-3 mb-md-0 col-md-6">
-          <%= product_item.select :product_id, @products.collect { |cat| [cat.name, cat.id]} , { prompt: true }, {class: 'form-select'} %>
+          <%= product_item.select :product_id, @products.collect { |cat| [cat.name, cat.id]} , { prompt: false }, {class: 'form-select'} %>
         </div>
         <div class="col-6 col-md-3">
           <%= product_item.number_field :quantity, class: 'form-control-sm border-2 border-dark w-full text-center p-0 mx-1', value: 1 %>
