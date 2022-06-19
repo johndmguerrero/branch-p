@@ -7,6 +7,7 @@ class ProductsController < ApplicationController
     @products = Product.paginate(page: params[:page])
     @products = Product.send(params[:type].to_sym).paginate(page: params[:page]) if params[:type].present?
     @category = Categories::Product.all
+    @categories = Categories::Product.includes(:products).all
   rescue
     redirect_to products_path
   end

@@ -33,7 +33,8 @@ class Product < ApplicationRecord
   enum status: [:active, :archived], _default: 'active'
 
   belongs_to :branch
-  belongs_to :category, class_name: 'Categories::Product'
+  belongs_to :category, class_name: 'Categories::Product', foreign_key: 'category_id'
+
 
   has_one_attached :image
 

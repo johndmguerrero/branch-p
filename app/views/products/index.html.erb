@@ -9,12 +9,12 @@
         <!-- Actions -->
         <div class="col-md-6 col-12 text-md-end">
           <div class="mx-n1">
-            <%= link_to '#', class: 'btn d-inline-flex btn-sm btn-neutral shadow border-base mx-1' do %>
+            <a href="#" class="btn d-inline-flex btn-sm btn-neutral shadow border-base mx-1" data-bs-toggle="offcanvas" data-bs-target="#category-create" aria-controls="offcanvasExample">
               <span class=" pe-2">
-                <i class="bi bi-eye"></i>
+                  <i class="bi bi-boxes"></i>
               </span>
               <span>Categories</span>
-            <% end %>
+            </a>
             <a href="#" class="btn d-inline-flex btn-sm btn-primary shadow mx-1" data-bs-toggle="offcanvas" data-bs-target="#product-create" aria-controls="offcanvasExample">
               <span class=" pe-2">
                   <i class="bi bi-plus-lg"></i>
@@ -60,3 +60,4 @@
   </div>
 </main>
 <%= render partial: 'products/partials/new_offcanvas' %>
+<%= render partial: 'products/partials/category_offcanvas' %>
