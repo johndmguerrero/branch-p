@@ -32,6 +32,12 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :categories do
+    member do
+      post :remove_category
+    end
+  end
+
   resources :receipts
   resources :orders do
     member do

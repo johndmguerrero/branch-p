@@ -51,10 +51,46 @@
         <%= link_to orders_path, class: 'nav-item nav-link' do %>
           Orders
         <% end %>
-        <%= link_to products_path, class: 'nav-item nav-link' do %>
-          Products
-        <% end %>
-        <a class="nav-item nav-link" href="#">Inventory</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inventory</a>
+          <div class="dropdown-menu dropdown-menu-md p-0 shadow-6" aria-labelledby="">
+            <div class="px-6 py-1">
+              <%= link_to products_path, class: 'dropdown-group py-5  border-bottom' do %>
+                <div class="d-flex">
+                  <div class="lh-snug dropdown-helper">
+                    <i class="bi bi-shop"></i>
+                  </div>
+                  <div class="ms-4">
+                    <h6 class="dropdown-heading lh-snug mb-2">Products</h6>
+                    <p class="dropdown-helper">List of Products</p>
+                  </div>
+                </div>
+              <% end %>
+              <a href="#" class="dropdown-group py-5  border-bottom" role="button">
+                <div class="d-flex">
+                  <div class="lh-snug dropdown-helper">
+                    <i class="bi bi-newspaper"></i>
+                  </div>
+                  <div class="ms-4">
+                    <h6 class="dropdown-heading lh-snug mb-2">Store Items</h6>
+                    <p class="dropdown-helper">Spend less time creating pages using our examples.</p>
+                  </div>
+                </div>
+              </a>
+              <a href="#" class="dropdown-group py-5 " role="button">
+                <div class="d-flex">
+                  <div class="lh-snug dropdown-helper">
+                    <i class="bi bi-envelope"></i>
+                  </div>
+                  <div class="ms-4">
+                    <h6 class="dropdown-heading lh-snug mb-2">Manage Inventory</h6>
+                    <p class="dropdown-helper">Spend less time creating pages using our examples.</p>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+        </li>
       </div>
       <!-- Right navigation -->
       <div class="navbar-nav align-items-lg-center d-none d-lg-flex ms-lg-auto">

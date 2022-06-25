@@ -22,6 +22,9 @@ application.register("toast", ToastController)
 import WalletController from "./wallet_controller.js"
 application.register("wallet", WalletController)
 
+import CategoriesController from "./categories_controller.js"
+application.register("categories", CategoriesController)
+
 import NestedForm from 'stimulus-rails-nested-form'
 application.register('nested-form', NestedForm)
 
