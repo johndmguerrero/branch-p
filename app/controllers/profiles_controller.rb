@@ -20,7 +20,7 @@ class ProfilesController < ApplicationController
       format.turbo_stream do
         render turbo_stream: [
           turbo_stream.update("stamp", partial: 'profiles/partials/stamp_form', locals: { user: current_user }),
-          turbo_stream.update("attendance_table", partial: 'profiles/partials/attendances_tables', locals: { attendances: current_user.attendances })
+          turbo_stream.update("attendance_table", partial: 'profiles/partials/attendances_tables', locals: { attendances: current_user.attendances.paginate(page: params[:page]) })
         ]
       end
     end
