@@ -13,4 +13,5 @@ class Category < ApplicationRecord
   include CategoryConcern
 
   has_many :products, class_name: 'Product', foreign_key: 'category_id'
+  has_many :items, class_name: 'Products::Item', foreign_key: 'category_id'
 end

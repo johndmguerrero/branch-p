@@ -6,7 +6,7 @@ class PointOfSalesController < ApplicationController
 
   def index
     @order = current_order
-    @product = Product.active.order('products.category_id asc, name asc').group_by(&:category)
+    @product = Product.active.where('type != ?', "Products::Item").order('products.category_id asc, name asc').group_by(&:category)
     @products = Product.where(type: [nil, 'Product'], quantity: (1..))
   end
 

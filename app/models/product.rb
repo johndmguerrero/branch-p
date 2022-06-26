@@ -29,6 +29,8 @@ class Product < ApplicationRecord
   include PgSearch::Model
   include ProductConcern
   acts_as_paranoid
+  validates_as_paranoid
+  validates_uniqueness_of_without_deleted :name
 
   enum status: [:active, :archived], _default: 'active'
 

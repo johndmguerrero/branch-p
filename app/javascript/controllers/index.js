@@ -25,6 +25,12 @@ application.register("wallet", WalletController)
 import CategoriesController from "./categories_controller.js"
 application.register("categories", CategoriesController)
 
+import ItemsCategoriesController from "./items_categories_controller.js"
+application.register("item-categories", ItemsCategoriesController)
+
+import ItemController from "./item_controller"
+application.register('item', ItemController)
+
 import NestedForm from 'stimulus-rails-nested-form'
 application.register('nested-form', NestedForm)
 

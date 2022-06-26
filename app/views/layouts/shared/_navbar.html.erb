@@ -66,17 +66,17 @@
                   </div>
                 </div>
               <% end %>
-              <a href="#" class="dropdown-group py-5  border-bottom" role="button">
+              <%= link_to items_path, class: 'dropdown-group py-5 border-bottom' do %>
                 <div class="d-flex">
                   <div class="lh-snug dropdown-helper">
                     <i class="bi bi-newspaper"></i>
                   </div>
                   <div class="ms-4">
                     <h6 class="dropdown-heading lh-snug mb-2">Store Items</h6>
-                    <p class="dropdown-helper">Spend less time creating pages using our examples.</p>
+                    <p class="dropdown-helper">List of Store items</p>
                   </div>
                 </div>
-              </a>
+              <% end %>
               <a href="#" class="dropdown-group py-5 " role="button">
                 <div class="d-flex">
                   <div class="lh-snug dropdown-helper">
@@ -84,7 +84,7 @@
                   </div>
                   <div class="ms-4">
                     <h6 class="dropdown-heading lh-snug mb-2">Manage Inventory</h6>
-                    <p class="dropdown-helper">Spend less time creating pages using our examples.</p>
+                    <p class="dropdown-helper">Inventory Management</p>
                   </div>
                 </div>
               </a>

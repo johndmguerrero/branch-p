@@ -1,81 +1,81 @@
 <div class="offcanvas offcanvas-end w-full w-sm-3/4 w-lg-1/3 " data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="product-create" aria-labelledby="offcanvasExampleLabel" data-controller="hello">
-    <div class="offcanvas-header">
-      <h5 class="offcanvas-title" id="Label">Add Product</h5>
-      <button type="button" class="btn-close text-reset text-xs" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-    </div>
-    <div class="offcanvas-body pt-0">
-      <%= form_with model: current_branch.products.new, id: 'product-form', url: products_path, method: :post, local: false, html: { autocomplete: 'off'} do |f| %>
-        <div>
-          <div class="row g-5 mb-5">
-            <div class="col-md-12">            
-              <%= f.label :name, 'Name', class: 'form-label' %>
-              <%= f.text_field :name, class: 'form-control', placeholder: 'Product name (Make it Unique)'%>
-            </div>
-            <div class="col-md-12">
-              <%= f.label :category, 'Category', class: 'form-label' %>
-              <%= select :product, :category_id, @category.collect { |cat| [cat.name, cat.id]}, { prompt: true }, { class: "form-select" } %>
-            </div>
-            <div class="col-md-12">
-              <h5 class="form-label">Type</h5>
-              <div class="row">
-                <div class="col-sm-6">
-                  <%= f.radio_button :type, Product, value: nil, class: 'd-none', checked: true %>
-                  <%= f.label :type, 'Product', class: 'w-full', value: 'product' do %>
-                    <div class="box-label d-flex align-items-center border-2 border-primary-hover font-bold px-4 py-3 rounded-2 transition-all ease-in-out duration-300">
-                      <div class="w-8">
-                        <i class="bi bi-box-seam text-lg"></i>
-                      </div>
-                      <span class="">Single Product</span>
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="Label">Add Product</h5>
+    <button type="button" class="btn-close text-reset text-xs" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body pt-0">
+    <%= form_with model: current_branch.products.new, id: 'product-form', url: products_path, method: :post, local: false, html: { autocomplete: 'off'} do |f| %>
+      <div>
+        <div class="row g-5 mb-5">
+          <div class="col-md-12">            
+            <%= f.label :name, 'Name', class: 'form-label' %>
+            <%= f.text_field :name, class: 'form-control', placeholder: 'Product name (Make it Unique)'%>
+          </div>
+          <div class="col-md-12">
+            <%= f.label :category, 'Category', class: 'form-label' %>
+            <%= select :product, :category_id, @category.collect { |cat| [cat.name, cat.id]}, { prompt: true }, { class: "form-select" } %>
+          </div>
+          <div class="col-md-12">
+            <h5 class="form-label">Type</h5>
+            <div class="row">
+              <div class="col-sm-6">
+                <%= f.radio_button :type, Product, value: nil, class: 'd-none', checked: true %>
+                <%= f.label :type, 'Product', class: 'w-full', value: 'product' do %>
+                  <div class="box-label d-flex align-items-center border-2 border-primary-hover font-bold px-4 py-3 rounded-2 transition-all ease-in-out duration-300">
+                    <div class="w-8">
+                      <i class="bi bi-box-seam text-lg"></i>
                     </div>
-                  <% end %>
-                </div>
-                <div class="col-sm-6">
-                  <%= f.radio_button :type, Products::Package, value: 'Products::Package', class: 'd-none' %>
-                  <%= f.label :type, 'Package', class: 'w-full', value: 'productspackage' do %>
-                    <div class="box-label d-flex align-items-center border-2 border-primary-hover font-bold px-4 py-3 rounded-2 transition-all ease-in-out duration-300">
-                      <div class="w-8">
-                        <i class="bi bi-boxes text-lg"></i>
-                      </div>
-                      <span class="">Package</span>
-                    </div>
-                  <% end %>
-                </div>
+                    <span class="">Single Product</span>
+                  </div>
+                <% end %>
               </div>
+              <div class="col-sm-6">
+                <%= f.radio_button :type, Products::Package, value: 'Products::Package', class: 'd-none' %>
+                <%= f.label :type, 'Package', class: 'w-full', value: 'productspackage' do %>
+                  <div class="box-label d-flex align-items-center border-2 border-primary-hover font-bold px-4 py-3 rounded-2 transition-all ease-in-out duration-300">
+                    <div class="w-8">
+                      <i class="bi bi-boxes text-lg"></i>
+                    </div>
+                    <span class="">Package</span>
+                  </div>
+                <% end %>
+              </div>
+            </div>
 
-            </div>
-            <div class="col-md-12">
-              <%= f.label :description, 'Description', class: 'form-label' %>
-              <%= f.text_area :description, class: 'form-control', placeholder: 'Product description...', rows: 3 %>
-            </div>
-            <div class="col-md-12">
-              <div>
-                <%= f.label :cost, 'Cost', class: 'form-label' %>
-                <div class="input-group input-group-inline">
-                  <span class="input-group-text" id="">
-                      &#8369;
-                  </span>
-                  <%= f.text_field :cost, class: 'form-control text-end', placeholder: "&#8369;99.00".html_safe %>
-                </div>
-                <span class="mt-2 valid-feedback">It should be greater than cost</span>
+          </div>
+          <div class="col-md-12">
+            <%= f.label :description, 'Description', class: 'form-label' %>
+            <%= f.text_area :description, class: 'form-control', placeholder: 'Product description...', rows: 3 %>
+          </div>
+          <div class="col-md-12">
+            <div>
+              <%= f.label :cost, 'Cost', class: 'form-label' %>
+              <div class="input-group input-group-inline">
+                <span class="input-group-text" id="">
+                    &#8369;
+                </span>
+                <%= f.text_field :cost, class: 'form-control text-end', placeholder: "&#8369;99.00".html_safe %>
               </div>
-            </div>            
-            <div class="col-md-12">
-              <div>
-                <%= f.label :price, 'Price', class: 'form-label' %>
-                <div class="input-group input-group-inline">
-                  <span class="input-group-text" id="">
-                      &#8369;
-                  </span>
-                  <%= f.text_field :price, class: 'form-control text-end', placeholder: "&#8369;99.00".html_safe, data: {  } %>
-                </div>
+              <span class="mt-2 valid-feedback">It should be greater than cost</span>
+            </div>
+          </div>            
+          <div class="col-md-12">
+            <div>
+              <%= f.label :price, 'Price', class: 'form-label' %>
+              <div class="input-group input-group-inline">
+                <span class="input-group-text" id="">
+                    &#8369;
+                </span>
+                <%= f.text_field :price, class: 'form-control text-end', placeholder: "&#8369;99.00".html_safe, data: {  } %>
               </div>
             </div>
           </div>
         </div>
-      <% end %>
-    </div>
-    <div class="modal-footer bg-surface-secondary">
-      <button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="offcanvas">Close</button>
-      <button type="button" class="btn btn-sm btn-primary" data-action="click->hello#submitForm">Save</button>
-    </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="modal-footer bg-surface-secondary">
+    <button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="offcanvas">Close</button>
+    <button type="button" class="btn btn-sm btn-primary" data-action="click->hello#submitForm">Save</button>
+  </div>
 </div>

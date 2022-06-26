@@ -1,0 +1,31 @@
+<div class="offcanvas offcanvas-end w-full w-sm-3/4 w-lg-1/3 " data-bs-scroll="true" data-bs-backdrop="true" tabindex="-1" id="item-create" aria-labelledby="offcanvasExampleLabel" data-controller="item">
+  <div class="offcanvas-header">
+    <h5 class="offcanvas-title" id="Label">Add Item</h5>
+    <button type="button" class="btn-close text-reset text-xs" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+  </div>
+  <div class="offcanvas-body pt-0">
+    <%= form_with model: current_branch.products.new, id: 'item-form', url: items_path, method: :post, local: false, html: { autocomplete: 'off'} do |f| %>
+    <%= f.hidden_field :type, value: 'Products::Item' %>
+      <div>
+        <div class="row g-5 mb-5">
+          <div class="col-md-12">            
+            <%= f.label :name, 'Name', class: 'form-label' %>
+            <%= f.text_field :name, class: 'form-control', placeholder: 'Product name (Make it Unique)'%>
+          </div>
+          <div class="col-md-12">
+            <%= f.label :category, 'Category', class: 'form-label' %>
+            <%= select :product, :category_id, @categories.collect { |cat| [cat.name, cat.id]}, { prompt: true }, { class: "form-select" } %>
+          </div>
+          <div class="col-md-12">
+            <%= f.label :description, 'Description', class: 'form-label' %>
+            <%= f.text_area :description, class: 'form-control', placeholder: 'Product description...', rows: 3 %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class="modal-footer bg-surface-secondary">
+    <button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="offcanvas">Close</button>
+    <button type="button" class="btn btn-sm btn-primary" data-action="click->item#submitForm">Save</button>
+  </div>
+</div>

@@ -66,6 +66,19 @@ Rails.application.routes.draw do
       post :update_password
     end
   end
+
+  resources :items do
+    member do
+      post :archive
+      post :active
+    end
+  end
+
+  resources :item_categories do
+    member do
+      post :remove_category
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
