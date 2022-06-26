@@ -1,0 +1,145 @@
+<header class="pt-5">
+  <div class="container-xl">
+    <div>
+      <div class="row align-items-center">
+        <div class="col-sm-6 col-12 mb-4 mb-sm-0 d-flex">
+          <%= item_go_back_index %>
+          <h1 class="h2 ms-2 mb-0 ls-tight"><%= @item.name.capitalize %></h1>
+        </div>
+        <!-- Actions -->
+        <div class="col-sm-6 col-12 text-sm-end">
+          <div class="mx-n1">
+            <%# product_set_status_btn %>
+            <button type="button" class="btn shadow d-inline-flex btn-sm btn-outline-danger mx-1" data-bs-toggle="modal" data-bs-target="#confirm-delete">
+              <span class=' pe-2'>
+                <i class='bi bi-trash'></i>
+              </span>
+              <span>Delete</span>
+            </button>
+            <%# item_delete_btn %>
+          </div>
+        </div>
+      </div>
+      <!-- Nav -->
+      <ul class="nav nav-tabs mt-4 overflow-x border-0">
+        <li class="nav-item ">
+          <a href="#" class="nav-link active">Information</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</header>
+<%= render partial: 'items/partials/confirm_delete' %>
+<div class="bg-surface-secondary" data-controller="item">
+  <div class="container py-10">
+    <%= form_with model: @item, id: 'item-edit-form', url: item_path(@item), method: :patch, local: false, data: { "item-target": "itemEditForm" } do |f| %>
+      <div class="row">
+        <div class="col-lg-7">
+          <div class="card shadow border-0 mb-10">
+            <div class="card-body">
+              <div class="mb-7">
+                <h4 class="font-semibold mb-1">Item Image</h4>
+                <div class="position-relative product-image-preview">
+                  <%= item_edit_image_display %>
+                  <div class="frame-file-upload duration-300 ease-in-out transition-opacity card border-2 border-dashed border-primary-hover position-absolute start-0 end-0 top-0 bottom-0 opacity-0 m-4" style="background-size: cover;">
+                    <div class="d-flex justify-content-center align-items-center h-full px-5 py-5">
+                      <%= f.label :image, '', class: 'position-absolute w-full h-full top-0 start-0 cursor-pointer' do %>
+                        <%= f.file_field :image, class: 'visually-hidden', data: { action: 'change->item#previewImage', "item-target" => 'itemFileInput' }%>
+                      <% end %>
+                      <div class="text-center">
+                        <div class="text-2xl text-muted">
+                          <i class="bi bi-upload"></i>
+                        </div>
+                        <div class="d-flex text-sm mt-3">
+                          <p class="font-semibold">Upload a file or drag and drop</p>
+                        </div>
+                        <p class="text-xs text-gray-500">
+                          PNG, JPG, GIF up to 3MB
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row g-5">
+                <div class="col-md-12">
+                  <div class="">
+                    <%= f.label :name, 'Name', class: 'form-label' %>
+                    <%= f.text_field :name, class: 'form-control' %>
+                  </div>
+                </div>
+                <div class="col-md 12">
+                  <div>
+                    <%= f.label :category, 'Category', class: 'form-label' %>
+                    <%= f.select :category_id, @categories.collect { |cat| [cat.name, cat.id]}, { prompt: true }, { class: "form-select" } %>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="">
+                    <%= f.label :description, 'Description', class: 'form-label' %>
+                    <%= f.text_area :description, class: 'form-control', rows: 3 %>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <div class="card shadow border-0 mb-10">
+            <div class="card-body">
+              <div class="mb-7">
+                <h4 class="font-semibold mb-1">Item Information</h4>
+                <p class="text-sm text-muted d-none">By filling your data you get a much better experience using our website.</p>
+              </div>
+              <div class="row g-5">
+                <div class="col-12">
+                  <div class="">
+                    <%= f.label :quantity, 'Item quantity', class: 'form-label' %>
+                    <%= f.number_field :quantity, class: 'form-control' %>
+                  </div>
+                </div>
+                <%# <div class="col-md-6">
+                  <div class="">
+                    <label class="form-label" for="city">City</label>
+                    <input type="text" class="form-control" id="city" placeholder="Your email">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="">
+                    <label class="form-label" for="country">Country</label>
+                    <select class="form-select" id="country" placeholder="Your email" aria-label="Default select example">
+                      <option selected>Country</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-2">
+                  <div class="">
+                    <label class="form-label" for="zip">ZIP</label>
+                    <input type="tel" class="form-control" id="zip" placeholder="Your email">
+                  </div>
+                </div>
+                <div class="col-12">
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="check_primary_address" id="check_primary_address">
+                    <label class="form-check-label" for="check_primary_address">
+                      Make this my default address
+                    </label>
+                  </div>
+                </div> %>
+              </div>
+            </div>
+            <div class="card-footer text-end py-4">
+              <%= f.button type: 'submit', class: 'btn btn-sm btn-primary', data: { action: 'click->product#submitProductBtn' } do %>
+                Update
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -29,11 +29,14 @@ class Product < ApplicationRecord
   include PgSearch::Model
   include ProductConcern
   acts_as_paranoid
+  validates_as_paranoid
+  validates_uniqueness_of_without_deleted :name
 
   enum status: [:active, :archived], _default: 'active'
 
   belongs_to :branch
-  belongs_to :category, class_name: 'Categories::Product'
+  belongs_to :category, class_name: 'Categories::Product', foreign_key: 'category_id'
+
 
   has_one_attached :image
 

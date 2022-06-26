@@ -23,7 +23,7 @@
             <% end %>
           </td>
           <td>
-            <%= attendance.created_at.to_fs(:time) %>
+            <%= attendance.created_at.localtime.strftime("%R, %p") %>
           </td>
         </tr>
       <% end %>
@@ -31,5 +31,9 @@
   </table>
 </div>
 <div class="card-footer text-center">
-  <%= will_paginate @attendances, page_links: false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  <% if current_user.owner? %>
+    <%= will_paginate attendances, page_links: false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  <% else %>
+    <%= will_paginate attendances, params: { controller: profiles_path }, page_links: false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+  <% end %>
 </div>

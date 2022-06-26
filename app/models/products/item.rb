@@ -25,8 +25,8 @@
 #  index_products_on_deleted_at   (deleted_at)
 #
 module Products
-  class Package < Product
-    belongs_to :category, class_name: 'Categories::Product', foreign_key: 'category_id'
-
+  class Item < Product
+    belongs_to :category, class_name: 'Categories::Item', foreign_key: 'category_id'
+    
   end
 end

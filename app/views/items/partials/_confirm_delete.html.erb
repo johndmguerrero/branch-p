@@ -1,0 +1,25 @@
+<div class="modal fade" id="confirm-delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modal_example" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-4">
+      <div class="modal-body">
+        <div class="text-center py-5 px-5">
+          <!-- Icon -->
+          <div class="icon icon-shape rounded-circle bg-soft-danger text-danger text-lg">
+            <i class="bi bi-exclamation-octagon-fill"></i>
+          </div>
+          <!-- Title -->
+          <h3 class="mt-7 mb-4">Remove <%= @item.name %>?</h3>
+          <!-- Text -->
+          <p class="text-sm text-muted">
+            We will immediately remove this item from our database. This action can not be undone. Are you sure you want to do this?
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="modal">Cancel</button>
+        <%= item_delete_btn %>
+        <%# <button type="button" class="btn btn-sm btn-danger">remove</button> %>
+      </div>
+    </div>
+  </div>
+</div>

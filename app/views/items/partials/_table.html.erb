@@ -1,0 +1,54 @@
+<div class="table-responsive" style="min-height: 400px;">
+  <table class="table table-hover table-nowrap">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Item name</th>
+        <th scope="col">Description</th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Updated at</th>
+        <th scope="col">Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @items.each do |item| %>
+        <tr>
+          <td>
+            <%= item_index_table_name(item) %>
+          </td>
+          <td>
+            <%= item.description %>
+          </td>
+          <td>
+            <span class="font-semibold"><%= item.quantity %></span>
+            <%# <span class="d-block text-xs text-muted">ABC 00021</span> %>
+          </td>
+          <td>
+            <%= item.updated_at.strftime("%a, %b %d %Y") %>
+          </td>
+          <td>
+            <%= items_status(item.status)%>
+          </td>
+          <td class="text-end">
+            <div class="dropdown d-none">
+              <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <%#  view button dropdown %>
+                <%# link_to edit_product_path(product.id), class: 'dropdown-item' do %>
+                  <%# View %>
+                <%# end if !product.deleted? %>
+
+                <%# # recover button dropdown %>
+                <%# button_to recover_product_path(product.id), class: 'dropdown-item text-danger', method: :post, form_class: 'd-inline' do %>
+                  <%# Recover %>
+                <%# end if product.deleted? %>
+              </div>
+            </div>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

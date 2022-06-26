@@ -1,0 +1,36 @@
+<% categories.each do |category| %>
+  <div class="form-item-checkable mb-2">
+    <label class="item w-full" for="listGroupCheckableRadios116">
+      <div class="form-item-click d-flex align-items-center border border-primary-hover text-heading px-4 py-3 rounded-2">
+        <div class="action-table me-3">
+          <div class="dropdown">
+              <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" id="dropdownMore1" aria-haspopup="true" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                <a href="#" class="dropdown-item" 
+                  data-item-categories-id-param="<%= category.id %>"
+                  data-action="click->item-categories#editItemCategory"
+                   >
+                  Update
+                </a>
+                <% if category.items.size == 0 %>
+                  <a href="#!" class="dropdown-item"
+                    data-item-categories-id-param="<%= category.id %>"
+                    data-action="click->item-categories#removeItemCategory"
+                  >
+                    Remove
+                  </a>
+                <% end %>
+              </div>
+          </div>
+        </div>
+        <div class="w-8">
+          <i class="bi bi-tag text-lg"></i>
+        </div>
+        <span class="text-body text-sm"><%= category.name %></span>
+        <span class="ms-auto text-sm text-muted"><%= category.items.size %></span>
+      </div>
+    </label>
+  </div>
+<% end %>

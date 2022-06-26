@@ -4,9 +4,10 @@ class ProductsController < ApplicationController
   before_action :set_product_deleted, only: [:recover]
 
   def index
-    @products = Product.paginate(page: params[:page])
-    @products = Product.send(params[:type].to_sym).paginate(page: params[:page]) if params[:type].present?
+    @products = Product.where('type != ?', "Products::Item").paginate(page: params[:page])
+    @products = Product.where('type != ?', "Products::Item").send(params[:type].to_sym).paginate(page: params[:page]) if params[:type].present?
     @category = Categories::Product.all
+    @categories = Categories::Product.includes(:products).all
   rescue
     redirect_to products_path
   end

@@ -4,7 +4,7 @@
       <div class="row align-items-center">
         <div class="col-md-6 col-12 mb-3 mb-md-0">
             <!-- Title -->
-          <h1 class="h2 mb-0 ls-tight">Products</h1>
+          <h1 class="h2 mb-0 ls-tight">Store Items</h1>
         </div>
         <!-- Actions -->
         <div class="col-md-6 col-12 text-md-end">
@@ -15,11 +15,11 @@
               </span>
               <span>Categories</span>
             </a>
-            <a href="#" class="btn d-inline-flex btn-sm btn-primary shadow mx-1" data-bs-toggle="offcanvas" data-bs-target="#product-create" aria-controls="offcanvasExample">
+            <a href="#" class="btn d-inline-flex btn-sm btn-primary shadow mx-1" data-bs-toggle="offcanvas" data-bs-target="#item-create" aria-controls="offcanvasExample">
               <span class=" pe-2">
                   <i class="bi bi-plus-lg"></i>
               </span>
-              <span>Add Product</span>
+              <span>Add Items</span>
             </a>
           </div>
         </div>
@@ -27,37 +27,27 @@
         <!-- Nav -->
       <ul class="nav nav-tabs overflow-x mt-2">
         <li class="nav-item">
-          <%= link_to products_path, class: "nav-link font-regular #{active_page(products_path)}" do %>
-            All Products
+          <%= link_to items_path, class: "nav-link font-regular #{active_page(items_path)}" do %>
+            All Items
           <% end %>
-        </li>
-        <li class="nav-item">
-          <%= link_to products_path(type: 'archived'), class: "nav-link font-regular #{active_page(products_path(type: 'archived'))}" do %>
-            Archived
-          <% end %>
-        </li>
-        <li class="nav-item d-none">
-          <%= link_to products_path(type: 'deleted'), class: "nav-link font-regular #{active_page(products_path(type: 'deleted'))}" do %>
-            Deleted
-          <% end if current_user.owner? %>
         </li>
       </ul>
     </div>
   </div>
 </header>
-<!-- Main content -->
+
 <main class="py-10 bg-surface-secondary">
   <!-- Container -->
   <div class="container-xl">
     <div class="bg-card rounded shadow-sm">
       <div class="py-5">
-        <%= product_index_view %>
+        <%= items_index_view %>
       </div>
       <div class="card-footer">
-        <%= will_paginate @products, page_links: false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+        <%= will_paginate @items, page_links: false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
       </div>
     </div>
   </div>
 </main>
-<%= render partial: 'products/partials/new_offcanvas' %>
-<%= render partial: 'products/partials/category_offcanvas' %>
+<%= render partial: 'items/partials/new_offcanvas' %>
+<%= render partial: 'items/partials/category_offcanvas' %>
