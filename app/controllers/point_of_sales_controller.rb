@@ -94,6 +94,43 @@ class PointOfSalesController < ApplicationController
     render layout: false
   end
 
+  def apply_discount_item
+    @order = Order.includes(:order_items).find_by id: params[:id]
+    order_item = OrderService.new(order: @order, params: discount_params)
+    order_item.apply_discount_item
+    @order.reload
+    @order.recalculate
+
+    respond_to do |format|
+      format.turbo_stream do 
+        render turbo_stream: [
+          turbo_stream.update('cart-offcanvas-body', partial: 'point_of_sales/partials/cart_offcanvas_body', locals: { order: @order }),
+          turbo_stream.update('header-order-info', partial: 'point_of_sales/partials/header_order_info', locals: { order: @order }),
+          turbo_stream.update('checkout_form', partial: 'point_of_sales/partials/checkout/offcanvas_body', locals: { order: @order })
+        ]
+      end 
+    end
+  end
+
+  def remove_discount_item
+    @order = Order.includes(:order_items).find_by id: params[:order_id]
+    @order_item = @order.order_items.find_by id: params[:id]
+    order_item = OrderService.new(order: @order, order_item: @order_item )
+    order_item.remove_discount
+    @order.reload
+    @order.recalculate
+
+    respond_to do |format|
+      format.turbo_stream do 
+        render turbo_stream: [
+          turbo_stream.update('cart-offcanvas-body', partial: 'point_of_sales/partials/cart_offcanvas_body', locals: { order: @order }),
+          turbo_stream.update('header-order-info', partial: 'point_of_sales/partials/header_order_info', locals: { order: @order }),
+          turbo_stream.update('checkout_form', partial: 'point_of_sales/partials/checkout/offcanvas_body', locals: { order: @order })
+        ]
+      end 
+    end
+  end
+
   private
 
   def set_order
@@ -118,5 +155,9 @@ class PointOfSalesController < ApplicationController
         :product_id
       ]
     )
+  end
+
+  def discount_params
+    params.require(:discount).permit(:order_item_id, :type, :input)
   end
 end

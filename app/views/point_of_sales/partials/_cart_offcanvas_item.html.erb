@@ -27,9 +27,22 @@
         <i class="bi bi-three-dots-vertical"></i>
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a href="#!" class="dropdown-item">
-          Apply Discount
-        </a>
+        <% if item.discount.nil? %>
+          <a href="#!" class="dropdown-item"
+            data-action="click->point-of-sales#addItemDiscount"
+            data-point-of-sales-item-id-param=<%= item.id %>
+          >
+            Apply Discount
+          </a>
+        <% else %>
+          <a href="#!" class="dropdown-item text-danger"
+            data-action="click->point-of-sales#removeItemDiscount"
+            data-point-of-sales-item-id-param=<%= item.id %>
+            data-point-of-sales-order-id-param=<%= @order.id %>
+          >
+            Remove Discount
+          </a>
+        <% end %>
       </div>
     </div>
   </div>

@@ -1,0 +1,56 @@
+<div class="modal fade" id="order-discount" tabindex="-1" aria-labelledby="modal_example" aria-hidden="true" data-controller="discount" data-point-of-sales-target="discountItemForm">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-3">
+      <div class="modal-header">
+        <h5 class="modal-title">Apply item discount?</h5>
+        <div class="text-xs ms-auto">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+      </div>
+      <%= form_with scope: :discount, url: apply_discount_item_point_of_sale_path(id: @order.id), id: 'apply-item-order-form', method: :post do |t| %>
+        <%= t.hidden_field :order_item_id, data: { point_of_sales_target: 'orderItemDiscount' }  %>
+        <div class="modal-body">
+          <div class="cart-discount-choices mb-5">
+            <label for="" class="font-bold">1. Choose kind of discount</label>
+            <div class="cart-discount-card-choices my-3 row">
+              <%# percent tag button %>
+              <div class="col-xs-12 col-md-6">
+                <%= t.radio_button :type, "percent", value: nil, class: "d-none radio-select-discount-input", checked: true, data: { action: 'click->discount#validateChange' } %>
+                <%= t.label :type, 'Percent', value: "percent", class: 'w-full' do %>
+                  <div class="box-label d-flex align-items-center border-2 border-primary-hover font-bold px-4 py-3 rounded-2 transition-all ease-in-out duration-300">
+                    <div class="w-8">
+                      <i class="bi bi-percent"></i>
+                    </div>
+                    <span class="">Percent</span>
+                  </div>
+                <% end %>
+              </div>
+                <%# value tag button %>
+              <div class="col-xs-12 col-md-6">
+                <%= t.radio_button :type, "amount", value: nil, class: 'd-none radio-select-discount-input', data: { action: 'click->discount#validateChange' } %>
+                <%= t.label :type, 'Amount' , value: "amount", class: 'w-full' do %>
+                  <div class="box-label d-flex align-items-center border-2 border-primary-hover font-bold px-4 py-3 rounded-2 transition-all ease-in-out duration-300">
+                    <div class="w-8">
+                      <i class="bi bi-cash"></i>
+                    </div>
+                    <span class="">Amount</span>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+          <div class="cart-discount-input">
+            <%= t.label :input, "2. Input desired discount", class: 'font-bold' %>
+            <%= t.number_field :input, class: 'form-control  my-3', data: { error_message: ''} %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="d-block btn btn-sm btn-neutral" data-bs-dismiss="modal">Close</button>
+          <%= t.button type: 'submit', class: 'd-block btn btn-sm btn-primary', disabled_with: 'Applying..' do %>
+            Apply Discount
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

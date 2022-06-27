@@ -37,6 +37,8 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :product, with_deleted: true
 
+  has_one :discount, as: :discountable, dependent: :destroy
+
   def package?
     false
   end
