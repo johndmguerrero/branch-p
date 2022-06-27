@@ -31,6 +31,9 @@ application.register("item-categories", ItemsCategoriesController)
 import ItemController from "./item_controller"
 application.register('item', ItemController)
 
+import DiscountController from "./discount_controller"
+application.register('discount', DiscountController)
+
 import NestedForm from 'stimulus-rails-nested-form'
 application.register('nested-form', NestedForm)
 

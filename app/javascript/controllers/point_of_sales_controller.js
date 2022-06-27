@@ -9,7 +9,9 @@ export default class extends Controller {
                     "received", 
                     "packageOrderDetailModal", 
                     "orderDetailPackageModalTitle",
-                    "PackageProductId"
+                    "PackageProductId",
+                    'orderItemDiscount',
+                    "discountItemForm"
                   ]
 
   initialize(){
@@ -24,6 +26,7 @@ export default class extends Controller {
     })
 
     window.PackageOrderDetail = new bootstrap.Modal(this.packageOrderDetailModalTarget, {keyboard: false})
+    window.DiscountItemModal = new bootstrap.Modal(this.discountItemFormTarget, {keyboard: false})
 
     this.bindConfirmFromValidation(this.confirmFormTagTarget)
 
@@ -144,6 +147,30 @@ export default class extends Controller {
         return label.insertAfter($(element).closest('.form-control'))
       },
     });
+  }
+
+  addItemDiscount({params: { itemId }}){
+    window.DiscountItemModal.show()
+    this.orderItemDiscountTarget.value = itemId
+  }
+
+  removeItemDiscount({params: { itemId, orderId }}){
+    const payload = {
+      id: itemId,
+      order_id: orderId
+    }
+
+    fetch(`point_of_sales/${itemId}/remove_discount_item.turbo_stream`,{
+      method: 'POST',
+      headers: {
+        "X-CSRF-Token": this.getMetaValue("csrf-token"),
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    }).then( response => response.text())
+      .then((response) => {
+      Turbo.renderStreamMessage(response)
+    }).catch(e => console.log(e))
   }
 
 

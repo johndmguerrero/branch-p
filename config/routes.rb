@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       post :confirm_and_complete_order
       post :complete
       post :add_package_item
+      post :apply_discount_item
+      post :remove_discount_item
     end
   end
   resources :products do

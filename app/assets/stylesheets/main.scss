@@ -48,6 +48,11 @@ body{
 }
 
 
+#discount_type_percent:checked + label .box-label,
+#discount_type_amount:checked + label .box-label{
+  border-color: $primary;
+}
+
 
 .hidden {
   display: none;
