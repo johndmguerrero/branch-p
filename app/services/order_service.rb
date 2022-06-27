@@ -43,6 +43,15 @@ class OrderService
     item
   end
 
+  def apply_discount_item
+    order_item = order.order_items.find_by id: params[:order_item_id]
+    order_item.apply_discount(type: params[:type], amount: params[:input])
+  end
+
+  def remove_discount
+    order_item.remove_discount!
+  end
+
   def confirm_payment
     payment = order.payment
     payment = order.create_payment if payment.nil?
