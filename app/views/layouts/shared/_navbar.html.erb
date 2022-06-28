@@ -77,7 +77,7 @@
                   </div>
                 </div>
               <% end %>
-              <a href="#" class="dropdown-group py-5 " role="button">
+              <%= link_to inventories_path, class: 'dropdown-group py-5' do %>
                 <div class="d-flex">
                   <div class="lh-snug dropdown-helper">
                     <i class="bi bi-envelope"></i>
@@ -87,7 +87,7 @@
                     <p class="dropdown-helper">Inventory Management</p>
                   </div>
                 </div>
-              </a>
+              <% end %>
             </div>
           </div>
         </li>
