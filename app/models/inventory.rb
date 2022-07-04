@@ -8,6 +8,7 @@
 #  remarks          :string
 #  status           :integer
 #  type             :string
+#  void_remarks     :string
 #  created_at       :datetime         not null
 #  updated_at       :datetime         not null
 #  branch_id        :bigint
@@ -19,22 +20,29 @@
 #  index_inventories_on_user_id    (user_id)
 #
 class Inventory < ApplicationRecord
-  enum status: [:pending, :denied, :complete, :approve]
+  default_scope { order("created_at desc") }
+  self.per_page = 10
+
+  enum status: [:pending, :cancel, :complete, :void], _default: 'pending'
   enum inventory_types: [
     "Inventories::Deliver",
     "Inventories::PullOut",
     "Inventories::Transfer"
   ]
 
-  belongs_to :user, optional: true
+  belongs_to :user
   belongs_to :branch
 
   has_many :inventory_items
 
-  accepts_nested_attributes_for :inventory_items, reject_if: lambda { |item| item[:product_id].blank? }
+  accepts_nested_attributes_for :inventory_items, reject_if: :all_blank
 
   def self.types
-    inventory_types.to_h { |type| [type.demodulize.underscore.humanize, type.demodulize.downcase] }
+    inventory_types.to_h { |type| [type.demodulize.underscore.humanize, type] }
+  end
+
+  def display_type
+    type.demodulize.underscore.humanize
   end
 
 end

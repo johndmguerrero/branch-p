@@ -1,0 +1,32 @@
+<div class="modal fade" id="void-inventory-modal" tabindex="-1" aria-labelledby="modal_example" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content shadow-4">
+      <%= form_with url: void_inventory_path(id: @inventory.id), method: :post do |t| %>
+        <div class="modal-body">
+          <div class="text-center py-5 px-5">
+            <!-- Icon -->
+            <div class="icon icon-shape rounded-circle bg-soft-primary text-primary text-lg">
+              <i class="bi bi-exclamation-triangle-fill"></i>
+            </div>
+            <!-- Title -->
+            <h3 class="mt-7 mb-4">Void Inventory?</h3>
+            <!-- Text -->
+            <p class="text-sm text-muted mb-5">
+              if you set the inventory to void, it will conduct a <span class="font-bold">Inventory reversal</span> which is returning the transaction of the inventory, then set the order to <span class="font-bold">Void</span>
+            </p>
+          </div>
+          <div class="my-3">
+            <%= t.label :message, 'Reason', class: 'form-label' %>
+            <%= t.text_area :message, class: 'form-control', resize: "none", rows: 3, placeholder: 'e.g: Wrong punched items, forgot to apply discount' %>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-sm btn-neutral" data-bs-dismiss="modal">Cancel</button>
+          <%= t.button type: 'submit', class: 'btn btn-sm btn-primary' do %>
+            Void Inventory
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

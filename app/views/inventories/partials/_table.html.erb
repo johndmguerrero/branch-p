@@ -2,7 +2,7 @@
   <table class="table table-hover table-nowrap">
     <thead class="thead-light">
       <tr>
-        <th scope="col">Invoice</th>
+        <th scope="col">Inventory Number</th>
         <th scope="col">Date</th>
         <th scope="col">Amount</th>
         <th scope="col">Method</th>
@@ -11,124 +11,49 @@
       </tr>
     </thead>
     <tbody>
+      <% @inventories.each do |inventory| %>
       <tr>
         <td>
-          <a href="#" class="font-bold">#ABC123</a>
+          <%= link_to edit_inventory_path(id: inventory.id), class: 'font-bold' do %>
+            #<%= inventory.inventory_number %>
+          <% end %>
         </td>
         <td>
-          Feb 15, 2021
+          <%= inventory.created_at.strftime("%b %d, %Y") %>
         </td>
         <td>
-          <span class="font-semibold text-heading">14 Items</span>
+          <span class="font-semibold text-heading"><%= "#{inventory.inventory_items&.size} Item".pluralize(inventory.inventory_items&.size) %></span>
         </td>
         <td>
-          <span class="font-bold"> Transfer </span>
+          <span class="font-bold"><%= inventory.type.demodulize.underscore.humanize %></span>
           <div class="d-flex align-items-center d-none">
             <i class="bi bi-credit-card me-2 text-lg"></i>
             **** 4231
           </div>
         </td>
         <td>
-          <span class="badge text-uppercase bg-soft-success text-success">Approved</span>
+          <%= inventory_status(inventory.status) %>
         </td>
         <td class="text-end">
-          <div class="dropdown">
-            <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
-              <i class="bi bi-three-dots-vertical"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end">
-              <a href="#!" class="dropdown-item">
-                Action
+          <% if current_user.owner? && inventory.pending? %>
+            <div class="dropdown">
+              <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
               </a>
-              <a href="#!" class="dropdown-item">
-                Another action
-              </a>
-              <a href="#!" class="dropdown-item">
-                Something else here
-              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <%= button_to complete_inventory_path(inventory.id), class: 'dropdown-item', method: :post, form_class: 'd-inline' do %>
+                  Complete
+                <% end %>
+                <%= button_to cancel_inventory_path(inventory.id), class: 'dropdown-item text-danger', method: :post, form_class: 'd-inline' do %>
+                  Cancel
+                <% end %>
+              </div>
             </div>
-          </div>
+          <% end %>
         </td>
       </tr>
-      <tr>
-        <td>
-          <a href="#" class="font-semibold">Invoice A/03</a>
-        </td>
-        <td>
-          Mar 15, 2021
-        </td>
-        <td>
-          <span class="font-semibold text-heading">$149,00</span>
-        </td>
-        <td>
-          <div class="d-flex align-items-center">
-            <i class="bi bi-credit-card me-2 text-lg"></i>
-            **** 4231
-          </div>
-        </td>
-        <td>
-          <span class="badge text-uppercase bg-soft-success text-success">Paid</span>
-        </td>
-        <td class="text-end">
-          <div class="dropdown">
-            <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
-              <i class="bi bi-three-dots-vertical"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end">
-              <a href="#!" class="dropdown-item">
-                Action
-              </a>
-              <a href="#!" class="dropdown-item">
-                Another action
-              </a>
-              <a href="#!" class="dropdown-item">
-                Something else here
-              </a>
-            </div>
-          </div>
-        </td>
-      </tr>
-      <tr>
-        <td>
-          <a href="#" class="font-semibold">Invoice A/04</a>
-        </td>
-        <td>
-          Apr 20, 2021
-        </td>
-        <td>
-          <span class="font-semibold text-heading">$99,00</span>
-        </td>
-        <td>
-          <div class="d-flex align-items-center">
-            <i class="bi bi-credit-card me-2 text-lg"></i>
-            **** 0023
-          </div>
-        </td>
-        <td>
-          <span class="badge text-uppercase bg-soft-danger text-danger">Canceled</span>
-        </td>
-        <td class="text-end">
-          <div class="dropdown">
-            <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
-              <i class="bi bi-three-dots-vertical"></i>
-            </a>
-            <div class="dropdown-menu dropdown-menu-end">
-              <a href="#!" class="dropdown-item">
-                Action
-              </a>
-              <a href="#!" class="dropdown-item">
-                Another action
-              </a>
-              <a href="#!" class="dropdown-item">
-                Something else here
-              </a>
-            </div>
-          </div>
-        </td>
-      </tr>
+      <% end %>
     </tbody>
   </table>
 </div>

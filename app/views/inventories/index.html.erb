@@ -78,6 +78,10 @@
   <div class="container">
     <div class="card bg-white p-3">    
       <%= render partial: 'inventories/partials/table' %>
+
+      <div class="card-footer">
+        <%= will_paginate @inventories, page_links: false, renderer: WillPaginate::ActionView::BootstrapLinkRenderer %>
+      </div>
     </div>
   </div>
 </main>

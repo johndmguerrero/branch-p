@@ -18,8 +18,10 @@
 #  index_inventory_items_on_product_id    (product_id)
 #
 class InventoryItem < ApplicationRecord
+  enum status: [:pending, :complete, :void], _default: 'pending'
+
   belongs_to :inventory
-  belongs_to :product
+  belongs_to :product, with_deleted: true
 
   
 end
