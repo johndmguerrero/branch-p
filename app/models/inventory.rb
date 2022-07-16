@@ -37,12 +37,20 @@ class Inventory < ApplicationRecord
 
   accepts_nested_attributes_for :inventory_items, reject_if: :all_blank
 
+  validate :at_least_one_inventory_items
+
   def self.types
     inventory_types.to_h { |type| [type.demodulize.underscore.humanize, type] }
   end
 
   def display_type
     type.demodulize.underscore.humanize
+  end
+
+  private
+
+  def at_least_one_inventory_items
+    return errors.add :base, "Must have at least one Inventory Item" unless inventory_items.length > 0
   end
 
 end
