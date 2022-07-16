@@ -1,0 +1,59 @@
+<div class="table-responsive">
+  <table class="table table-hover table-nowrap">
+    <thead class="thead-light">
+      <tr>
+        <th scope="col">Inventory Number</th>
+        <th scope="col">Date</th>
+        <th scope="col">Amount</th>
+        <th scope="col">Method</th>
+        <th scope="col">Status</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @inventories.each do |inventory| %>
+      <tr>
+        <td>
+          <%= link_to edit_inventory_path(id: inventory.id), class: 'font-bold' do %>
+            #<%= inventory.inventory_number %>
+          <% end %>
+        </td>
+        <td>
+          <%= inventory.created_at.strftime("%b %d, %Y") %>
+        </td>
+        <td>
+          <span class="font-semibold text-heading"><%= "#{inventory.inventory_items&.size} Item".pluralize(inventory.inventory_items&.size) %></span>
+        </td>
+        <td>
+          <span class="font-bold"><%= inventory.type.demodulize.underscore.humanize %></span>
+          <div class="d-flex align-items-center d-none">
+            <i class="bi bi-credit-card me-2 text-lg"></i>
+            **** 4231
+          </div>
+        </td>
+        <td>
+          <%= inventory_status(inventory.status) %>
+        </td>
+        <td class="text-end">
+          <% if current_user.owner? && inventory.pending? %>
+            <div class="dropdown">
+              <a class="text-muted" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
+              </a>
+              <div class="dropdown-menu dropdown-menu-end">
+                <%= button_to complete_inventory_path(inventory.id), class: 'dropdown-item', method: :post, form_class: 'd-inline' do %>
+                  Complete
+                <% end %>
+                <%= button_to cancel_inventory_path(inventory.id), class: 'dropdown-item text-danger', method: :post, form_class: 'd-inline' do %>
+                  Cancel
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+        </td>
+      </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

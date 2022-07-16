@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_27_011726) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_03_074713) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -83,6 +83,34 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_27_011726) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["discountable_type", "discountable_id"], name: "index_discounts_on_discountable"
+  end
+
+  create_table "inventories", force: :cascade do |t|
+    t.bigint "user_id"
+    t.bigint "branch_id"
+    t.integer "status"
+    t.string "type"
+    t.string "inventory_number"
+    t.string "remarks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "origin"
+    t.string "void_remarks"
+    t.index ["branch_id"], name: "index_inventories_on_branch_id"
+    t.index ["user_id"], name: "index_inventories_on_user_id"
+  end
+
+  create_table "inventory_items", force: :cascade do |t|
+    t.bigint "product_id"
+    t.bigint "inventory_id"
+    t.integer "quantity"
+    t.integer "status"
+    t.integer "damaged"
+    t.integer "undelivered"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["inventory_id"], name: "index_inventory_items_on_inventory_id"
+    t.index ["product_id"], name: "index_inventory_items_on_product_id"
   end
 
   create_table "notes", force: :cascade do |t|

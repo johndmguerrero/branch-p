@@ -1,0 +1,32 @@
+<div class="nested-form-wrapper" data-new-record="<%= item.object.new_record? %>">
+  <div>
+    <div class="rounded px-2 py-2 mb-2 border border">
+      <div class="row align-items-center mb-3">
+        <div class="col-9 mb-3 mb-md-0 col-md-9">
+          <%= item.select :product_id, @products.collect { |cat| [cat.name, cat.id]} , { prompt: false }, {class: 'form-select w-full'} %>
+        </div>
+        <div class="col-3 ms-md-auto">
+          <button type="button" class="btn text-sm btn-sm btn-block btn-primary w-full" data-action="nested-form#remove">
+            <i class="bi bi-x-lg"></i>
+          </button>
+        </div>
+      </div>
+      <div>
+        <div class="row">
+          <div class="col-12 col-md-4 mb-1 d-flex align-items-center">
+            <%= item.label :quantity, 'Quantity', class: 'form-label me-3 mb-0' %>
+            <%= item.number_field :quantity, class: 'form-control-sm border-2 w-full', value: 1, min: 0 %>
+          </div>
+          <div class="col-12 col-md-4 mb-1 d-flex align-items-center">
+            <%= item.label :damaged, 'Damaged', class: 'form-label me-3 mb-0' %>
+            <%= item.number_field :damaged, class: 'form-control-sm border-2 w-full', value: 0, min: 0 %>
+          </div>
+          <div class="col-12 col-md-4 mb-1 d-flex align-items-center">
+            <%= item.label :undelivered, 'Undelivered', class: 'form-label me-3 mb-0' %>
+            <%= item.number_field :undelivered, class: 'form-control-sm border-2 w-full', value: 0, min: 0 %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
