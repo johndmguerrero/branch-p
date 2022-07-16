@@ -81,6 +81,14 @@ Rails.application.routes.draw do
       post :remove_category
     end
   end
+
+  resources :inventories do
+    member do
+      post :complete
+      post :cancel
+      post :void
+    end
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
