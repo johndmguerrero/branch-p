@@ -1,0 +1,34 @@
+<main class=" bg-surface-secondary">
+  <!-- Container -->
+  <div class="container-lg py-7">
+    <div class="row">
+      <div class="col col-12 mx-auto">
+        <%= form_with model: current_branch, url: update_store_time_setting_path(id: current_branch.id), method: :post do |f| %>
+          <div class="mb-7">
+            <h4 class="font-semibold mb-1">Store Time</h4>
+          </div>
+          <div class="row g-5">
+            <div class="col-md-6">
+              <div class="">
+                <%= f.label :opens_at, "Opens at", class: 'form-label' %>
+                <%= f.time_field :opens_at, class: 'form-control', min: 'hh:mm:ss', max: 'hh:mm:ss' %>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="">
+                <%= f.label :close_at, "Close at", class: 'form-label' %>
+                <%= f.time_field :close_at, class: 'form-control', min: 'hh:mm:ss', max: 'hh:mm:ss' %>
+              </div>
+            </div>
+          </div>
+          <hr class="mt-10 mb-8">
+          <div class="d-flex mb-8">
+            <%= f.button type: 'submit', class: 'btn btn-primary ms-auto' do %>
+              Save
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>

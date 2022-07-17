@@ -31,6 +31,9 @@
         <%= link_to staffs_path, class: 'dropdown-item' do %>
           <span>My Staffs</span>
         <% end if current_user.owner? %>
+        <%= link_to settings_path, class: 'dropdown-item' do %>
+          <span>Settings</span>
+        <% end if current_user.owner? %>
         <div class="dropdown-divider"></div>
         <%= button_to destroy_user_session_path, method: 'delete', class: "dropdown-item" do %>
           <i class="ni ni-user-run"></i>
@@ -92,16 +95,7 @@
           </div>
         </li>
       </div>
-      <!-- Right navigation -->
-      <div class="navbar-nav align-items-lg-center d-none d-lg-flex ms-lg-auto">
-          <a href="#" class="nav-link nav-link-icon px-3 position-relative">
-              <i class="bi bi-chat"></i>
-          </a>
-          <a href="#" class="nav-link nav-link-icon px-3 position-relative">
-              <i class="bi bi-bell"></i>
-              <span class="w-3 h-3 bg-warning rounded-circle position-absolute top-2 end-2 border-2 border-dark d-inline-block"></span>
-          </a>
-      </div>
+
     </div>
   </div>
 </nav>
