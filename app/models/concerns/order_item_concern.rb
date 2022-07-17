@@ -29,6 +29,12 @@ module OrderItemConcern
     end
   end
 
+  def discount_price_display
+    if discount.present?
+      total
+    end
+  end
+
   def remove_discount!
     if discount.present?
       discount.destroy

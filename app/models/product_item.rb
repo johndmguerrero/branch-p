@@ -26,4 +26,8 @@ class ProductItem < ApplicationRecord
     product.update(quantity: product.quantity - quantity)
   end
 
+  def reverse_to_product
+    product.update(quantity: product.quantity + quantity)
+  end
+
 end
