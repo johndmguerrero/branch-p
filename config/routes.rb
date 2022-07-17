@@ -41,6 +41,13 @@ Rails.application.routes.draw do
   end
 
   resources :receipts
+
+  resources :settings do
+    member do
+      post :update_store_time
+    end
+  end
+
   resources :orders do
     member do
       post :add_note
