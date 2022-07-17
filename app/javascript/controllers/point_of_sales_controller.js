@@ -25,9 +25,18 @@ export default class extends Controller {
       return new bootstrap.Offcanvas(offcanvasEl)
     })
 
+    
     window.PackageOrderDetail = new bootstrap.Modal(this.packageOrderDetailModalTarget, {keyboard: false})
     window.DiscountItemModal = new bootstrap.Modal(this.discountItemFormTarget, {keyboard: false})
 
+    document.addEventListener("turbo:submit-end", function(e){
+      // if (e.detail.formSubmission.)
+      window.formsubmitted = e.detail.formSubmission
+      if(e.detail.formSubmission.formElement.id == 'apply-item-order-form'){
+        window.DiscountItemModal.hide();
+      }
+    })
+    
     this.bindConfirmFromValidation(this.confirmFormTagTarget)
 
     $.validator.addMethod("EmptyNumber", function(value, element, arg){

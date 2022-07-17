@@ -1,1 +1,46 @@
-<%= params[:order_number]%>
+<main class="bg-surface-secondary py-5">
+  <div class="w-full w-md-2/5 mx-auto">
+    <div class="card shadow p-5 mb-5">
+      <p class="text-center font-bold mb-3">
+        Receipt
+      </p>
+      <dl class="row mb-0">
+        <dt class="col-6 col-sm-4 py-1 text-sm text-muted">Order Number#</dt>
+        <dd class="col-6 col-sm-8 text-sm text-end py-1 text-muted text-end"><%= @order.order_number %></dd>
+        <dt class="col-6 col-sm-5 text-sm py-1 text-muted d-none">Discount <small>(30% OFF)</small> </dt>
+        <dd class="col-6 col-sm-7 text-sm text-end py-1 text-muted text-end d-none">-$25.20</dd>
+        <dt class="col-6 col-sm-4 text-sm py-1 text-heading font-semibold">Processed by</dt>
+        <dd class="col-6 col-sm-8 text-sm text-end py-1 text-heading font-semibold text-end"><%= @order.user.email %></dd>
+      </dl>
+      <div class="border-bottom-2 mb-3 border-dashed border-secondary"></div>
+      <p class="font-bold mb-3 text-center">Order Items</p>
+      <div class="list-group list-group-flush mb-2">
+        <% @order.order_items.each do |item| %>
+          <div class="list-group-item d-flex align-items-center border-none p-2">
+            <%= render partial: '/point_of_sales/partials/checkout/offcanvas_item', locals: { item: item } %>
+          </div>
+        <% end %>
+      </div>
+      <div class="border-bottom-2 mb-3 border-dashed border-secondary"></div>
+      <dl class="row mb-0">
+        <dt class="col-6 col-sm-4 py-1 text-sm text-muted">Subtotal</dt>
+        <dd class="col-6 col-sm-8 text-sm text-end py-1 text-muted text-end"><%= humanized_money_with_symbol @order.subtotal %></dd>
+        <dt class="col-6 col-sm-5 text-sm py-1 text-muted d-none">Discount <small>(30% OFF)</small> </dt>
+        <dd class="col-6 col-sm-7 text-sm text-end py-1 text-muted text-end d-none">-$25.20</dd>
+        <dt class="col-6 col-sm-4 text-sm py-1 text-heading font-semibold">Total</dt>
+        <dd class="col-6 col-sm-8 text-sm text-end py-1 text-heading font-semibold text-end"><%= humanized_money_with_symbol @order.total %></dd>
+      </dl>
+      <% if @order.payment.paid? %>
+      <div class="border-bottom-2 mb-3 border-dashed border-secondary"></div>
+      <p class="font-bold mb-3 text-center">Payment Transaction</p>
+      <dl class="row mb-0">
+        <dt class="col-6 col-sm-4 text-sm py-1 text-heading font-semibold">Amount Paid</dt>
+        <dd class="col-6 col-sm-8 text-sm text-end py-1 text-heading font-semibold text-end"><%= humanized_money_with_symbol( @order.payment.amount_paid)%></dd>
+        <dt class="col-6 col-sm-4 text-sm py-1 text-heading font-semibold">Change</dt>
+        <dd class="col-6 col-sm-8 text-sm text-end py-1 text-heading font-semibold text-end"><%= humanized_money_with_symbol( @order.payment.change)%></dd>
+      </dl>
+      <% end %>
+    </div>
+  </div>
+</main>
+

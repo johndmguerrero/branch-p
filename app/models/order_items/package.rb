@@ -52,5 +52,11 @@ module OrderItems
       product_items&.map(&:deduct_to_product)
       complete!
     end
+
+    def revert_transaction
+      return true if void?
+      product_items&.map(&:reverse_to_product)
+      void!
+    end
   end
 end

@@ -19,6 +19,7 @@
       <%= item.quantity %> <%= "piece".pluralize(item.quantity) %>
     <% end %>
     </span>
+    <span class="<%= item.discount.present? ? "text-success" : "" %>">&#8369; <%= item.total %></span>
   </div>
   <% if !item.order.paid? %>
   <div class="ms-auto">
