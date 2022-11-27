@@ -1,5 +1,5 @@
 Arguments: 
-  /opt/homebrew/Cellar/node/19.0.1/bin/node /opt/homebrew/bin/yarn check
+  /opt/homebrew/Cellar/node/19.0.1/bin/node /opt/homebrew/bin/yarn upgrade @rails/webpacker --latest
 
 PATH: 
   /Users/john/.rvm/gems/ruby-3.0.0/bin:/Users/john/.rvm/gems/ruby-3.0.0@global/bin:/Users/john/.rvm/rubies/ruby-3.0.0/bin:/Users/john/.rvm/bin:/opt/homebrew/bin:/opt/homebrew/sbin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/Visual Studio Code.app/Contents/Resources/app/bin
