@@ -25,8 +25,6 @@ module BranchPos
 
     # load observers
 
-    config.assets.initialize_on_precompile = false
-
     config.active_storage.variant_processor = :mini_magick
 
     Dir.chdir("#{Rails.root}/app/observers") do
