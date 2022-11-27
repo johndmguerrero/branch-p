@@ -2,7 +2,7 @@
   <div class="container-xl">
     <div>
       <div class="row align-items-center">
-        <div class="col-sm-6 col-12 mb-4 mb-sm-0 d-flex">
+        <div class="col-sm-6 col-12 mb-4 mb-sm-0 d-flex align-items-center">
           <%= inventory_edit_go_back %>
           <h1 class="h3 ms-2 mb-0 ls-tight">Inventory #<%= @inventory.inventory_number %></h1>
         </div>
@@ -35,7 +35,7 @@
 <main class="bg-surface-secondary">
   <div class="container py-5">
     <div class="card mb-5">
-      <div class="card-body">      
+      <div class="card-body">
         <div class="bg-gray-100 mb-3 rounded-2 p-5">
           <div class="row">
             <div class="col-md-6 col-lg-3 mb-5 mb-lg-1">
@@ -57,7 +57,7 @@
             <div class="col-md-12 mb-5 mb-lg-1">
               <h6>Remarks</h6>
               <p class="text-sm py-2"><%= @inventory.remarks %></p>
-            </div>            
+            </div>
           </div>
         </div>
         <div class="row mb-3">
@@ -114,7 +114,7 @@
               <% end %>
             </div>
           </div>
-        
+
         </div>
         <% if @inventory.void? && @inventory.void_remarks.present? %>
           <div class="bg-gray-100 mb-3 rounded-2 p-5 border-2 border-danger">
