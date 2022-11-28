@@ -7,7 +7,7 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 
-branch = Branch.new( name: 'Mister Donuts', address: 'Bacoor, Cavite')
+branch = Branch.new( name: 'Mister Donuts', address: 'Tanza, Cavite')
 branch.save
 owner = branch.users.create( email: 'owner@gmail.com', password: 'Testing123', password_confirmation: 'Testing123')
 owner.owner!
